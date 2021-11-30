@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  Toolbar  -->
+    <color name="toolbar_text_color">@color/white</color>
+
+    <!-- Main colors -->
+
+    <!-- Day -->
+    <color name="Primary_day">@color/purple_500</color>
+    <color name="PrimaryVariant_day">@color/purple_700</color>
+    <color name="onPrimary_day">@color/white</color>
+    <color name="surfaceDay">#f5f5f6</color>
+    <color name="onSurfaceDay">#212121</color>
+    <color name="Secondary_day">#fcd734</color>
+    <color name="SecondaryVariant_day">#c5a600</color>
+    <color name="OnSecondary_day">#3e2723</color>
+
+    <!-- Night -->
+    <color name="Primary_night">@color/purple_500</color>
+    <color name="PrimaryVariant_night">@color/purple_700</color>
+    <color name="onPrimary_night">@color/white</color>
+    <color name="surfaceNight">#1a1a1a</color>
+    <color name="onSurfaceNight">#f2f2f2</color>
+    <color name="Secondary_night">#fcd734</color>
+    <color name="SecondaryVariant_night">#c5a600</color>
+    <color name="OnSecondary_night">#3e2723</color>
+
+    
+    <!-- Text color -->
+
+    <!-- Day -->
+
+    <color name="primary_text_color_day">@color/black</color>
+    <color name="secondary_text_color">#808080</color>
+
+    <!-- Night -->
+
+    <color name="primary_text_color_night">@color/white</color>
+
+    <color name="lightBlack10">#1a1a1a</color>
+    <color name="lightBlack20">#333333</color>
+    <color name="lightBlack30">#4d4d4d</color>
+    <color name="lightBlack40">#666666</color>
+    <color name="lightBlack50">#808080</color>
+    <color name="shimmer">#cccccc</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+</resources>

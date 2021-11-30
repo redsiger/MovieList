@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- item_movie -->
+
+    <!-- margins -->
+    <dimen name="item_movie_rating_card_margin_top">10dp</dimen>
+    <dimen name="item_movie_rating_card_margin">10dp</dimen>
+    <dimen name="item_movie_rating_card_inner_margin">4dp</dimen>
+    <dimen name="item_movie_rating_card_inner_margin_bot">1dp</dimen>
+    <dimen name="item_movie_title_margin_top">4dp</dimen>
+    <dimen name="item_movie_title_margin">6dp</dimen>
+
+    <!-- widths / heights -->
+    <dimen name="item_movie_img_width">100dp</dimen>
+    <dimen name="item_movie_img_height">150dp</dimen>
+    <dimen name="item_movie_placeholder_width">50dp</dimen>
+    <dimen name="item_movie_placeholder_height">50dp</dimen>
+
+    <!-- card radius / elevation -->
+    <dimen name="item_movie_card_radius">5dp</dimen>
+    <dimen name="item_movie_card_elevation">5dp</dimen>
+    <dimen name="item_movie_rating_card_radius">4dp</dimen>
+    <dimen name="item_movie_rating_card_elevation">6dp</dimen>
+
+
+</resources>

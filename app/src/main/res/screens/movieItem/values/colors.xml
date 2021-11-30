@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Rating color -->
+    <color name="item_movie_rating_low">#ff3333</color>
+    <color name="item_movie_rating_medium">#4d4d4d</color>
+    <color name="item_movie_rating_high">#2eb82e</color>
+
+</resources>

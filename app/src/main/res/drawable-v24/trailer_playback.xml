@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/movie_detail_img_shade"
+        android:gravity="center"/>
+    <item android:drawable="@drawable/playback_background"
+        android:width="50dp"
+        android:height="50dp"
+        android:gravity="center"/>
+    <item android:drawable="@drawable/ic_playback_foreground" android:gravity="center"/>
+
+</layer-list>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:drawable="@drawable/ic_movie_reel"
+        android:width="@dimen/item_movie_placeholder_width"
+        android:height="@dimen/item_movie_placeholder_height"
+        android:gravity="center">
+    </item>
+
+</layer-list>

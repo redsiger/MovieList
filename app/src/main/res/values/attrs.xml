@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorSurfaceLevel0" format="reference|color" />
+    <attr name="colorSurfaceLevel1" format="reference|color" />
+    <attr name="colorSurfaceLevel2" format="reference|color" />
+</resources>

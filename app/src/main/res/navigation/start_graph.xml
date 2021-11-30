@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/start_graph"
+    app:startDestination="@id/moviesScreenFragment">
+
+    <include app:graph="@navigation/movie_detail_graph" />
+
+    <fragment
+        android:id="@+id/moviesScreenFragment"
+        android:name="com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.MoviesScreenFragment"
+        android:label="MoviesScreenFragment" >
+        <action
+            android:id="@+id/action_moviesScreenFragment_to_movie_detail_graph"
+            app:destination="@id/movie_detail_graph"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="movieId"
+                app:argType="integer"
+                app:nullable="false"/>
+        </action>
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_to_movie_detail_graph"
+        app:destination="@id/movie_detail_graph"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out">
+        <argument
+            android:name="movieId"
+            app:argType="integer"
+            app:nullable="false"/>
+    </action>
+
+    <action
+        android:id="@+id/action_global_to_search"
+        app:destination="@id/searchFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out">
+
+    </action>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.movielist.Screens.search.SearchFragment"
+        android:label="SearchFragment" />
+</navigation>

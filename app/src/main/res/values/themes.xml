@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MovieList" parent="Theme.AppTheme">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/Primary_day</item>
+        <item name="colorPrimaryVariant">@color/PrimaryVariant_day</item>
+        <item name="colorOnPrimary">@color/onPrimary_day</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/Secondary_day</item>
+        <item name="colorSecondaryVariant">@color/SecondaryVariant_day</item>
+        <item name="colorOnSecondary">@color/OnSecondary_day</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorOnSurface">@color/primary_text_color_day</item>
+
+        <item name="colorSurfaceLevel0">@color/purple_200</item>
+    </style>
+</resources>

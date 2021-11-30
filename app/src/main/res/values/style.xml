@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text -->
+
+    <style name="Text">
+        <item name="android:textSize">@dimen/app_text_medium</item>
+    </style>
+
+    <style name="TextPrimary" parent="Text">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextSecondary" parent="Text">
+<!--        <item name="android:textColor">@color/secondary_text_color</item>-->
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+
+    <!-- Custom attributes -->
+
+    <style name="colorSurfaceLevel0">
+        <item name="color">?colorSurfaceLevel0</item>
+    </style>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Application Font -->
+        <item name="android:fontFamily">@font/montserrat</item>
+
+
+        <!-- Card Shadows -->
+<!--        <item name="android:ambientShadowAlpha">0.2</item>-->
+<!--        <item name="android:spotShadowAlpha">0.2</item>-->
+
+        <!-- Pickers -->
+<!--        <item name="shapeAppearanceMediumComponent">@style/PickersCorners</item>-->
+
+    </style>
+</resources>

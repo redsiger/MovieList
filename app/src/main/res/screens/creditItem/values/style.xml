@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextName" parent="TextPrimary">
+        <item name="android:textSize">@dimen/app_text_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextCharacter" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_medium_small</item>
+    </style>
+</resources>

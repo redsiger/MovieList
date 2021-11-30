@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Cards -->
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="start_fragment_section_radius">10dp</dimen>
+
+    <!-- Pickers -->
+    <dimen name="picker_corner_radius">20dp</dimen>
+
+    <!-- App margins -->
+    <dimen name="app_margin_extraLarge">24dp</dimen>
+    <dimen name="app_margin_large">16dp</dimen>
+    <dimen name="app_margin_medium">8dp</dimen>
+    <dimen name="app_margin_small">4dp</dimen>
+    <dimen name="app_margin_extraSmall">2dp</dimen>
+
+    <!-- App paddings -->
+    <dimen name="app_padding_extraLarge">24dp</dimen>
+    <dimen name="app_padding_large">16dp</dimen>
+    <dimen name="app_padding_medium">8dp</dimen>
+    <dimen name="app_padding_small">4dp</dimen>
+
+
+    <dimen name="movie_img_margin">16dp</dimen>
+
+    <!-- App text sizes -->
+    <dimen name="app_text_extraExtraLarge">32sp</dimen>
+    <dimen name="app_text_extraLarge">24sp</dimen>
+    <dimen name="app_text_large">18sp</dimen>
+    <dimen name="app_text_normal">16sp</dimen>
+    <dimen name="app_text_medium">14sp</dimen>
+    <dimen name="app_text_medium_small">13sp</dimen>
+    <dimen name="app_text_small">12sp</dimen>
+
+    <dimen name="title_bottom_margin">4dp</dimen>
+    <dimen name="start_fragment_section_movie_width">100dp</dimen>
+    <dimen name="start_fragment_section_movie_height">150dp</dimen>
+    <dimen name="movie_img_corner_radius">8dp</dimen>
+    <dimen name="movie_img_elevation">5dp</dimen>
+    <dimen name="movie_img_detail_padding">6dp</dimen>
+    <dimen name="playback_button_dimens">50dp</dimen>
+    <dimen name="trending_item_width">380dp</dimen>
+    <dimen name="trending_item_height">210dp</dimen>
+</resources>
