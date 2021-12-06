@@ -5,6 +5,8 @@
         <!-- Application Font -->
         <item name="android:fontFamily">@font/montserrat</item>
 
+        <!-- Bottom Sheet Dialog -->
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
 
         <!-- Card Shadows -->
 <!--        <item name="android:ambientShadowAlpha">0.2</item>-->
@@ -14,4 +16,34 @@
 <!--        <item name="shapeAppearanceMediumComponent">@style/PickersCorners</item>-->
 
     </style>
+
+    <!-- Bottom Sheet Dialog -->
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">?attr/colorSurface</item>
+<!--        <item name="android:background">@drawable/bottom_dialog_fragment_background</item>-->
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+
+
+<!--    <style name="AppBottomSheetDialogTheme"-->
+<!--        parent="Theme.Design.Light.BottomSheetDialog">-->
+<!--        <item name="bottomSheetStyle">@style/AppModalStyle</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppModalStyle"-->
+<!--        parent="Widget.Design.BottomSheet.Modal">-->
+<!--        <item name="android:background">@drawable/bottom_dialog_fragment_background</item>-->
+<!--    </style>-->
+
 </resources>

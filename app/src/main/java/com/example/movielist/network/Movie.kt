@@ -1,8 +1,11 @@
 package com.example.movielist.network
 
+import android.os.Parcelable
 import com.example.movielist.foundation.BaseMovieItem
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Movie(
     @SerializedName("adult")
     override val adult: Boolean,
@@ -32,4 +35,4 @@ data class Movie(
     override val voteAverage: Double,
     @SerializedName("vote_count")
     override val voteCount: Double
-): BaseMovieItem()
+): BaseMovieItem, Parcelable

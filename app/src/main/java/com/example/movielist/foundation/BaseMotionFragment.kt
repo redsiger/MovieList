@@ -13,6 +13,7 @@ import com.example.movielist.utils.Status
 /**
  * Base class for all fragments with motionLayout root
  */
+//abstract class BaseMotionFragment: BaseFragment() {
 abstract class BaseMotionFragment(viewResId: Int): BaseFragment(viewResId) {
 
     open var _transitionState: Bundle? = null

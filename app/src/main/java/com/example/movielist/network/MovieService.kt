@@ -26,4 +26,7 @@ interface MovieService {
 
     @GET("movie/{id}/recommendations")
     suspend fun getRecommendations(@Path("id") movieId: Int): Response<RecommendationsResponse>
+
+    @GET("search/movie")
+    suspend fun getSearchResult(@Query("query") searchQuery: String): Response<MovieResponse>
 }

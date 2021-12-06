@@ -11,4 +11,7 @@
     <string name="movie_detail_release_title">Release date</string>
     <string name="movie_detail_budget_title">Budget</string>
     <string name="search_movies_hint">Search movies…</string>
+    <string name="discover_movies_title">Discover for yourself</string>
+    <string name="btn_delete_title">Delete</string>
+    <string name="empty" translatable="false" />
 </resources>

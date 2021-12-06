@@ -1,6 +1,8 @@
 package com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.movielist.data.MovieRepository
 import com.example.movielist.foundation.BaseViewModel
 import com.example.movielist.foundation.MutableLiveResult
@@ -8,6 +10,7 @@ import com.example.movielist.network.Movie
 import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +23,11 @@ class MoviesScreenViewModel @Inject constructor(
      * Variable is representing Screen state
      */
     var movies = MutableLiveResult<List<Movie>>(Status.InProgress)
+    val moviesPaging = getPopularMoviesPaging()
+
+    fun getPopularMoviesPaging(): Flow<PagingData<Movie>> {
+        return repository.getPopularMoviesPaging().cachedIn(viewModelScope)
+    }
 
     fun getPopularMovies() {
         movies.postValue(Status.InProgress)
@@ -43,5 +51,4 @@ class MoviesScreenViewModel @Inject constructor(
     init {
         getPopularMovies()
     }
-
 }

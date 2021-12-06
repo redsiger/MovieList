@@ -11,10 +11,15 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.movielist.R
 import com.example.movielist.databinding.FragmentSearchBinding
 import com.example.movielist.foundation.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+//class SearchFragment: BaseFragment() {
 class SearchFragment: BaseFragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null
@@ -25,17 +30,28 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
         _binding = FragmentSearchBinding.bind(view)
         setupNavigation(mBinding.searchToolbar)
         context?.let {
-            initSearchInput(mBinding.searchInput, mBinding.searchClear, mBinding.searchFind, it)
+            initSearchInput(mBinding.searchInput, mBinding.searchClear, mBinding.searchFind, navigateToSearchResults, it)
         }
+    }
+
+    val navigateToSearchResults = { searchQuery: String ->
+        val bundle = Bundle()
+        bundle.putString("searchQuery", searchQuery)
+        findNavController().navigate(R.id.action_searchFragment_to_searchResultsFragment, bundle)
     }
 
     /**
      * Function to handle ACTION_DONE event on search editText
      */
-    private fun initSearchInput(searchEditText: EditText, clearBtn: View, searchBtn: View, context: Context) {
+    private fun initSearchInput(searchEditText: EditText, clearBtn: View, searchBtn: View, react: (String) -> Unit, context: Context) {
         searchEditText.requestFocus()
         showSoftKeyboard(searchEditText, context)
-        initDoneBtn(searchEditText)
+        initDoneBtn(searchEditText, react)
+        searchBtn.setOnClickListener {
+            if (searchEditText.text.isNotEmpty()) {
+                react(searchEditText.text.toString())
+            }
+        }
         initClearBtn(searchEditText, clearBtn)
     }
 
@@ -61,11 +77,12 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     /**
      * Function to make input reactable to DONE btn
      */
-    private fun initDoneBtn(searchEditText: EditText) {
+    private fun initDoneBtn(searchEditText: EditText, react: (String) -> Unit) {
         searchEditText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(textView: TextView, actionId: Int, keyEvent: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_DONE && textView.text.isNotEmpty()) {
                     Log.e("ENTER", "CLICKED + ${textView.text}")
+                    react(textView.text.toString())
                 }
                 return true
             }

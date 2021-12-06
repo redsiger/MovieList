@@ -20,4 +20,6 @@
     <string name="movie_detail_release_title">Дата выхода</string>
     <string name="movie_detail_budget_title">Бюджет</string>
     <string name="search_movies_hint">Искать фильмы…</string>
+    <string name="discover_movies_title">Откройте для себя</string>
+    <string name="btn_delete_title">Удалить</string>
 </resources>

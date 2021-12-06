@@ -1,8 +1,10 @@
 package com.example.movielist.foundation
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-abstract class BaseMovieItem {
+interface BaseMovieItem: Parcelable {
     abstract val adult: Boolean
     abstract val backdropPath: String
     abstract val genreIds: List<Int>

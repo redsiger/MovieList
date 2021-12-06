@@ -17,10 +17,24 @@
     </style>
 
 
+    <!--  Discover  -->
+    <style name="ModalTitle" parent="Text">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/app_text_extraLarge</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ModalSubtitle" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_large</item>
+    </style>
+
+
     <!-- Custom attributes -->
 
     <style name="colorSurfaceLevel0">
         <item name="color">?colorSurfaceLevel0</item>
     </style>
+
+
 
 </resources>

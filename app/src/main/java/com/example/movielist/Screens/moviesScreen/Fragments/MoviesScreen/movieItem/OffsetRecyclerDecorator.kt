@@ -42,9 +42,7 @@ class OffsetRecyclerDecorator(private val marginTop: Int = 0,
         }
 
         if (layoutManager is GridLayoutManager) {
-            Log.e("SSSSSSSSSSSSSSSSSSSSSSSS", view.layoutParams.width.toString())
             view.layoutParams.width = -1
-            Log.e("AAAAAAAAAAAAAAAAAAAAAAAA", view.layoutParams.width.toString())
         }
     }
 

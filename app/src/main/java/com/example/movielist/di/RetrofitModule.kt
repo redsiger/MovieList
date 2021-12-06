@@ -21,15 +21,6 @@ const val TMDB_IMG_URL = "https://image.tmdb.org/t/p/original"
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-    @Singleton
-    @Provides
-    fun provideRepository(
-        movieService: MovieService,
-//        movieSearchResponseDao: MovieSearchResponseDao
-    ): MovieRepository {
-//        return MovieRepository(movieService, movieSearchResponseDao)
-        return MovieRepository(movieService)
-    }
 
     @Singleton
     @Provides

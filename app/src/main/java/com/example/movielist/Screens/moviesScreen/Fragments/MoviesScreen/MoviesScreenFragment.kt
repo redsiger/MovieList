@@ -2,22 +2,24 @@ package com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.paging.PagingData
 import com.example.movielist.R
-import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.OffsetRecyclerDecorator
+import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.moviesPaging.MoviesPagingAdapter
 import com.example.movielist.databinding.FragmentMoviesScreenBinding
 import com.example.movielist.foundation.BaseFragment
+import com.example.movielist.foundation.BaseMovieItem
 import com.example.movielist.foundation.RecyclerItemWidthListener
+import com.example.movielist.utils.Status
 import com.example.movielist.utils.onTryAgain
 import com.example.movielist.utils.renderSimpleResult
+import com.example.movielist.utils.setupGridLayoutManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +34,9 @@ class MoviesScreenFragment: BaseFragment(R.layout.fragment_movies_screen),
     private val mAdapter: MovieAdapter by lazy {
         MovieAdapter(mPicasso, this)
     }
+    private val mPagingAdapter: MoviesPagingAdapter by lazy {
+        MoviesPagingAdapter(mPicasso)
+    }
 
     private var itemMovieWidth = 0
 
@@ -40,69 +45,57 @@ class MoviesScreenFragment: BaseFragment(R.layout.fragment_movies_screen),
         _binding = FragmentMoviesScreenBinding.bind(view)
         val toolbar = mBinding.startScreenToolbar
         setupNavigation(toolbar, title = getString(R.string.app_name))
-        setupToolbarMenu(toolbar, R.menu.movies_menu, {
+        setupToolbarMenu(toolbar, R.menu.movies_menu) {
             when (it.itemId) {
                 R.id.menu_search_item -> {
                     Log.e("MENU ITEM", "$it CLICKED")
-                    val bundle = Bundle()
-                    val id = 550
-                    bundle.putInt("movieId", id)
-                    findNavController().navigate(R.id.action_global_to_search)
+                    findNavController().navigate(R.id.action_moviesScreenFragment_to_searchFragment)
+                    true
+                }
+                R.id.menu_discover_item -> {
+                    Log.e("MENU ITEM", "$it CLICKED")
+                    findNavController().navigate(R.id.action_global_discoverModal)
                     true
                 }
                 else -> {
                     false
                 }
             }
-        })
+        }
         initMovieList()
-    }
-
-
-
-    /**
-     * Function responsible for setting up a RecyclerView's layoutManager as GridLayoutManager,
-     * and setting up layoutManager's spanCount by auto
-     */
-    private fun setupLayoutManager(binding: FragmentMoviesScreenBinding, recyclerAdapter: MovieAdapter) {
-
-        binding.startScreenPopularsRecycler.adapter = recyclerAdapter
-        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
-        binding.startScreenPopularsRecycler.layoutManager = gridLayoutManager
-
-        binding.startScreenPopularsRecycler.viewTreeObserver.addOnGlobalLayoutListener(
-            object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val width = binding.startScreenPopularsRecycler.width
-                    Log.e("MEASURINGGGGGGG", itemMovieWidth.toString())
-                    val itemWidth = resources.getDimensionPixelSize(R.dimen.item_movie_img_width)
-                    if (width > 0 && itemWidth > 0) {
-                        Log.e("SUCCESSSSS", "$itemMovieWidth - item, $width - recycler")
-                        binding.startScreenPopularsRecycler.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                        val spanCount = width / itemWidth
-                        binding.startScreenPopularsRecycler.adapter = recyclerAdapter
-                        val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
-                        binding.startScreenPopularsRecycler.layoutManager = gridLayoutManager
-                        binding.startScreenPopularsRecycler.addItemDecoration(OffsetRecyclerDecorator(5, gridLayoutManager))
-                    }
-                }
-            }
-        )
     }
 
 
     private fun initMovieList() {
 
-        setupLayoutManager(mBinding, mAdapter)
+        renderSimpleResult(mBinding.root, Status.Success(Status.Empty), {})
 
-        mViewModel.movies.observe(viewLifecycleOwner, { status ->
-            renderSimpleResult(
-                root = mBinding.root,
-                status = status,
-                onSuccess = {
-                    mAdapter.setList(it)
-                } )
-        })
+        setupGridLayoutManager(
+            mBinding.startScreenPopularsRecycler,
+            mPagingAdapter,
+            resources.getDimensionPixelSize(R.dimen.item_movie_img_width)
+        )
+
+//        mBinding.startScreenPopularsRecycler.adapter = mPagingAdapter
+//        val layoutManager = GridLayoutManager(requireContext(), 3)
+//        mBinding.startScreenPopularsRecycler.layoutManager = layoutManager
+//        mBinding.startScreenPopularsRecycler.addItemDecoration(OffsetRecyclerDecorator(5, layoutManager))
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            mViewModel.moviesPaging.collectLatest {
+                mPagingAdapter.submitData(it as PagingData<BaseMovieItem>)
+            }
+        }
+
+
+//        mViewModel.movies.observe(viewLifecycleOwner, { status ->
+//            renderSimpleResult(
+//                root = mBinding.root,
+//                status = status,
+//                onSuccess = {
+//                    mAdapter.setList(it)
+//                } )
+//        })
 
         onTryAgain(mBinding.root, { mViewModel.tryAgain() })
     }

@@ -12,44 +12,44 @@
 
             <KeyAttribute
                 motion:framePosition="25"
-                motion:motionTarget="@id/title"
+                motion:motionTarget="@id/movieDetail_toolbarTitle_text"
                 android:alpha="0.0"/>
             <KeyAttribute
                 motion:framePosition="30"
-                motion:motionTarget="@id/title"
+                motion:motionTarget="@id/movieDetail_toolbarTitle_text"
                 android:alpha="0.2"/>
             <KeyAttribute
                 motion:framePosition="30"
-                motion:motionTarget="@id/titleExpandedContainer"
+                motion:motionTarget="@id/movieDetail_titleExpandedContainer"
                 android:alpha="0.0"/>
             <KeyAttribute
                 motion:framePosition="80"
-                motion:motionTarget="@id/toolbarBackground"
+                motion:motionTarget="@id/movieDetail_toolbarBackground"
                 android:alpha="0.0"/>
         </KeyFrameSet>
 
         <OnSwipe
             motion:maxAcceleration="40"
             motion:autoCompleteMode="spring"
-            motion:touchAnchorId="@id/contentScrollingContainer" />
+            motion:touchAnchorId="@id/movieDetail_contentScrollingContainer" />
     </Transition>
 
     <ConstraintSet android:id="@+id/Start">
         <Constraint
-            android:id="@+id/titleExpandedContainer"
+            android:id="@+id/movieDetail_titleExpandedContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="@id/backgroundContainer"
+            motion:layout_constraintBottom_toBottomOf="@id/movieDetail_backgroundContainer"
             android:alpha="1.0"/>
         <Constraint
-            android:id="@id/toolbarBackground"
+            android:id="@id/movieDetail_toolbarBackground"
             android:alpha="0.0"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
             motion:visibilityMode="ignore"/>
         <Constraint
-            android:id="@id/title"
+            android:id="@id/movieDetail_toolbarTitle_text"
             android:alpha="0.0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             motion:visibilityMode="ignore"/>
 
         <Constraint
-            android:id="@id/backgroundContainer"
+            android:id="@id/movieDetail_backgroundContainer"
             android:layout_width="match_parent"
             motion:layout_constraintTop_toTopOf="parent"
             motion:visibilityMode="ignore"/>
@@ -71,20 +71,20 @@
 
     <ConstraintSet android:id="@+id/End">
         <Constraint
-            android:id="@+id/titleExpandedContainer"
+            android:id="@+id/movieDetail_titleExpandedContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="@id/backgroundContainer"
+            motion:layout_constraintBottom_toBottomOf="@id/movieDetail_backgroundContainer"
             android:alpha="0.0"/>
         <Constraint
-            android:id="@id/toolbarBackground"
+            android:id="@id/movieDetail_toolbarBackground"
             android:alpha="1.0"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
             motion:visibilityMode="ignore"/>
         <Constraint
-            android:id="@id/title"
+            android:id="@id/movieDetail_toolbarTitle_text"
             android:alpha="1.0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,9 +98,9 @@
             motion:visibilityMode="ignore"/>
 
         <Constraint
-            android:id="@id/backgroundContainer"
+            android:id="@id/movieDetail_backgroundContainer"
             android:layout_width="match_parent"
-            motion:layout_constraintBottom_toBottomOf="@id/toolbarBackground"
+            motion:layout_constraintBottom_toBottomOf="@id/movieDetail_toolbarBackground"
             motion:visibilityMode="ignore"/>
     </ConstraintSet>
 </MotionScene>

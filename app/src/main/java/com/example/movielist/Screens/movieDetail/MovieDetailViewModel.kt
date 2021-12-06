@@ -16,6 +16,7 @@ import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +43,15 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     private fun mergeSources() {
+
+        if (_movie.value is Status.Error
+            || _cast.value is Status.Error
+            || _crew.value is Status.Error
+            || _recommendations.value is Status.Error) {
+                _screenState.value = Status.Error(Exception())
+                return
+        }
+
         val movie = _movie.value?.extractData ?: return
         val cast = _cast.value?.extractData ?: return
         val crew = _crew.value?.extractData ?: return
@@ -52,6 +62,7 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     init {
+        Log.e("INIT", "start")
         _screenState.addSource(_movie) { mergeSources() }
         _screenState.addSource(_cast) { mergeSources() }
         _screenState.addSource(_crew) { mergeSources() }
@@ -60,6 +71,7 @@ class MovieDetailViewModel @Inject constructor(
         getCast(movieId)
         getCrew(movieId)
         getRecommendations(movieId)
+        Log.e("INIT", "end")
     }
 
     fun getMovie(movieId: Int) {

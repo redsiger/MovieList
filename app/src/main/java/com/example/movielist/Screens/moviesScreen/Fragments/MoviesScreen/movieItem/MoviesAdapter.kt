@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,8 @@ import com.example.movielist.R
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
 import com.example.movielist.foundation.BaseMovieItem
 import com.example.movielist.foundation.RecyclerItemWidthListener
+import com.example.movielist.network.Movie
+import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.squareup.picasso.Picasso
 
 /**
@@ -36,63 +39,32 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movieList[position]
         holder.bind(movie = movie)
+    }
 
-        itemWidthListener?.let { listener ->
-            holder.itemView.viewTreeObserver.addOnGlobalLayoutListener {
-                object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        val itemWidth = holder.itemView.width
-                        if (itemWidth > 0) {
-                            holder.itemView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                            listener.setItemWidth(itemWidth)
-                        }
-                    }
-                }
-            }
-        }
-
-
-        val bundle = Bundle()
-        val id = movie.id
-        bundle.putInt("movieId", id)
+    override fun onViewAttachedToWindow(holder: MovieViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        val movie = movieList[holder.bindingAdapterPosition]
         holder.itemView.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_moviesScreenFragment_to_movie_detail_graph, bundle)
+            val bundle = bundleOf("movieId" to movie.id)
             it.findNavController().navigate(R.id.action_global_to_movie_detail_graph, bundle)
+        }
+        holder.itemView.setOnLongClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable("movie", movie)
+            it.findNavController().navigate(R.id.action_global_movieModalFragment, bundle)
+            return@setOnLongClickListener true
         }
     }
 
-//    override fun onViewAttachedToWindow(holder: MovieViewHolder) {
-//        super.onViewAttachedToWindow(holder)
-//        val movieId = movieList[holder.bindingAdapterPosition].id
-//        val bundle = Bundle()
-//        bundle.putInt("movieId", movieId)
-//        holder.itemView.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_global_to_movie_detail_graph, bundle)
-//        }
-//    }
-//
-//    override fun onViewDetachedFromWindow(holder: MovieViewHolder) {
-//        super.onViewDetachedFromWindow(holder)
-//        holder.itemView.setOnClickListener(null)
-//    }
+    override fun onViewDetachedFromWindow(holder: MovieViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.setOnClickListener(null)
+        holder.itemView.setOnLongClickListener(null)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         val viewHolder = MovieViewHolder(view, mPicasso)
-
-        itemWidthListener?.let { listener ->
-            viewHolder.itemView.viewTreeObserver.addOnGlobalLayoutListener {
-                object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        val itemWidth = viewHolder.itemView.width
-                        if (itemWidth > 0) {
-                            viewHolder.itemView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                            listener.setItemWidth(itemWidth)
-                        }
-                    }
-                }
-            }
-        }
 
         return viewHolder
     }
