@@ -11,5 +11,6 @@ data class Alarm(
     @PrimaryKey(autoGenerate = false)
     val movieId: Int,
     val movieTitle: String,
-    val time: Long
+    val time: Long,
+    val selected: Boolean
 ): Parcelable

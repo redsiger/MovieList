@@ -28,6 +28,8 @@
         <item name="android:textSize">@dimen/app_text_large</item>
     </style>
 
+    <!-- Alarm -->
+
 
     <!-- Custom attributes -->
 

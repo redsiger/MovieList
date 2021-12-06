@@ -46,7 +46,7 @@ class MovieModalFragment: BaseModalFragment() {
 
         mBinding.movieDetailRemindBtn.setOnClickListener {
             showDatePicker { time ->
-                val alarm = Alarm(movie.id, movie.title, time)
+                val alarm = Alarm(movie.id, movie.title, time, false)
                 lifecycleScope.launch {
                     alarmsDao.addAlarm(alarm)
                 }

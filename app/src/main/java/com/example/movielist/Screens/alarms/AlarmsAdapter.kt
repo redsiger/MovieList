@@ -45,6 +45,7 @@ class AlarmsAdapter: RecyclerView.Adapter<AlarmViewHolder>() {
             bundle.putParcelable("alarm", alarm)
             it.findNavController().navigate(R.id.action_global_alarmModalFragment, bundle)
         }
+
     }
 
     override fun onViewDetachedFromWindow(holder: AlarmViewHolder) {
