@@ -2,14 +2,13 @@ package com.example.movielist.Screens.alarms
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.movielist.data.AlarmsRepository
+import com.example.movielist.data.alarm.AlarmsRepository
 import com.example.movielist.foundation.BaseViewModel
 import com.example.movielist.foundation.LiveResult
 import com.example.movielist.foundation.MediatorLiveResult
 import com.example.movielist.foundation.MutableLiveResult
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +16,9 @@ import javax.inject.Inject
 class AlarmsViewModel @Inject constructor(
     private val repository: AlarmsRepository
 ): BaseViewModel() {
+
+    private val _screenStateExp = MutableLiveResult<List<Alarm>>().apply { value = repository.alarms }
+    val screenStateExp: LiveResult<List<Alarm>> = _screenStateExp
 
     private val _screenState = MutableLiveResult<List<Alarm>>().apply { value = Status.InProgress }
     val screenState: LiveResult<List<Alarm>> = _screenState

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.movielist.di.GENRES
 import com.example.movielist.di.GENRES_LOADED
-import com.example.movielist.network.Genre
+import com.example.movielist.network.movie.Genre
 import com.example.movielist.network.MovieService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.HttpException

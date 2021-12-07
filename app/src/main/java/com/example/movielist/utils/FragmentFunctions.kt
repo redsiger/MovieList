@@ -119,6 +119,7 @@ fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdap
 }
 
 fun Fragment.showDatePicker(action: (time: Long) -> Unit, calendar: Calendar, time: Long) {
+    Log.e("CALENDAR", calendar.time.toString())
     val constraints =
         CalendarConstraints.Builder()
             .setStart(time)
@@ -152,6 +153,9 @@ fun Fragment.showDatePicker(time: Long, action: (time: Long) -> Unit) {
     showDatePicker(action, calendar, time)
 }
 
+/**
+ * Takes lambda that is executed after date selecting
+ */
 fun Fragment.showDatePicker(action: (time: Long) -> Unit) {
     val calendar = Calendar.getInstance(TimeZone.getDefault())
     val today = calendar.timeInMillis
@@ -186,6 +190,6 @@ fun Fragment.setHours(calendar: Calendar, hours: Int) {
     calendar.set(Calendar.HOUR_OF_DAY, hours)
     if (hours > 12) {
         calendar.set(Calendar.HOUR, hours)
-        calendar.set(Calendar.AM_PM, 1)
+        calendar.set(Calendar.AM_PM, 0)
     }
 }

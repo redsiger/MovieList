@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.movielist.R
 import com.example.movielist.databinding.ActivityMainBinding
-import com.example.movielist.network.Movie
+import com.example.movielist.network.movie.Movie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -4,25 +4,22 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.movielist.Screens.movieDetail.credits.Cast
 import com.example.movielist.Screens.movieDetail.credits.Crew
-import com.example.movielist.data.MovieRepository
+import com.example.movielist.data.movie.MovieRepository
 import com.example.movielist.foundation.BaseViewModel
 import com.example.movielist.foundation.LiveResult
 import com.example.movielist.foundation.MediatorLiveResult
 import com.example.movielist.foundation.MutableLiveResult
-import com.example.movielist.network.Movie
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val repository: MovieRepository,
-    private val savedStateHandle: SavedStateHandle
+        private val repository: MovieRepository,
+        private val savedStateHandle: SavedStateHandle
 ): BaseViewModel() {
 
     /**

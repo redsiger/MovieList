@@ -1,4 +1,4 @@
-package com.example.movielist.network
+package com.example.movielist.network.movie
 
 import android.os.Parcelable
 import com.example.movielist.foundation.BaseMovieItem

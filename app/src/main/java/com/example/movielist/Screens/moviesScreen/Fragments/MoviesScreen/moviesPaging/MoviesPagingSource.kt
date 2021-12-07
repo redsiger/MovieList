@@ -2,7 +2,7 @@ package com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movies
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movielist.network.Movie
+import com.example.movielist.network.movie.Movie
 import com.example.movielist.network.MovieService
 import retrofit2.HttpException
 import java.io.IOException

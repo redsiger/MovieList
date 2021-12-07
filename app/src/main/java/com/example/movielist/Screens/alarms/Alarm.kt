@@ -12,5 +12,5 @@ data class Alarm(
     val movieId: Int,
     val movieTitle: String,
     val time: Long,
-    val selected: Boolean
+    val selected: Boolean = false
 ): Parcelable

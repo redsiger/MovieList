@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.movielist.R
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
 import com.example.movielist.foundation.BaseMovieItem
-import com.example.movielist.network.Movie
 import com.squareup.picasso.Picasso
 
 class MoviesPagingAdapter(

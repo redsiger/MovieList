@@ -1,18 +1,16 @@
 package com.example.movielist.Screens.movieDetail
 
+import android.app.AlarmManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.text.TextUtilsCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movielist.R
 import com.example.movielist.Screens.movieDetail.credits.Cast
@@ -21,20 +19,18 @@ import com.example.movielist.Screens.movieDetail.credits.CrewAdapter
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.MovieAdapter
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.OffsetRecyclerDecorator
 import com.example.movielist.databinding.FragmentMovieDetailBinding
+import com.example.movielist.di.CHANNEL_1_ID
 import com.example.movielist.di.LOCALE
 import com.example.movielist.di.TMDB_IMG_URL
-import com.example.movielist.foundation.BaseFragment
 import com.example.movielist.foundation.BaseMotionFragment
-import com.example.movielist.network.Movie
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.recommentadions.MovieRecommendation
+import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.onTryAgain
 import com.example.movielist.utils.renderSimpleResult
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,6 +44,9 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
 //    private val movieId by lazy {
 //        args.movieId
 //    }
+
+    @Inject lateinit var mAppNotificator: AppNotificator
+
     @Inject lateinit var mPicasso: Picasso
     private val castAdapter: CastAdapter by lazy {
         CastAdapter(mPicasso)
@@ -74,6 +73,21 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
 
     }
 
+    private fun initRemindBtn(movie: MovieById) {
+        mBinding.movieDetailRemindBtn.setOnClickListener {
+            mAppNotificator.pushNotification(
+                    CHANNEL_1_ID,
+                    movie.title,
+                    bundleOf("movieId" to movie.id),
+                    movie.id
+            )
+        }
+        mBinding.movieDetailRemindBtn.setOnLongClickListener {
+            mAppNotificator.deleteNotification(movie.id)
+            true
+        }
+    }
+
     private fun setStateObserver() {
         mViewModel.screenState.observe(
             viewLifecycleOwner, { status ->
@@ -87,6 +101,7 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
     }
 
     private fun renderMovieDetail(state: MovieDetailViewModel.MovieDetailState) {
+        initRemindBtn(state.movie)
         setToolbarContent(state.movie)
         setContentScrolling(state.movie)
         setCast(state.castList)

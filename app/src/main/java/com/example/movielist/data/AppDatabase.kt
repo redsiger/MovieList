@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.movielist.Screens.alarms.Alarm
+import com.example.movielist.data.alarm.AlarmsDao
 
 @Database(entities = [
     Alarm::class],

@@ -3,11 +3,10 @@ package com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.movielist.data.MovieRepository
+import com.example.movielist.data.movie.MovieRepository
 import com.example.movielist.foundation.BaseViewModel
 import com.example.movielist.foundation.MutableLiveResult
-import com.example.movielist.network.Movie
-import com.example.movielist.network.recommentadions.MovieRecommendation
+import com.example.movielist.network.movie.Movie
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

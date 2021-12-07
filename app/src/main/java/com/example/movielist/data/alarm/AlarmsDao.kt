@@ -1,4 +1,4 @@
-package com.example.movielist.data
+package com.example.movielist.data.alarm
 
 import androidx.room.Dao
 import androidx.room.Insert

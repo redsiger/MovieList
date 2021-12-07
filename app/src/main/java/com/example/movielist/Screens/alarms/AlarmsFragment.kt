@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movielist.R
-import com.example.movielist.data.AlarmsDao
+import com.example.movielist.data.alarm.AlarmsDao
 import com.example.movielist.databinding.FragmentAlarmsBinding
 import com.example.movielist.foundation.BaseFragment
 import com.example.movielist.utils.onTryAgain

@@ -1,6 +1,5 @@
 package com.example.movielist.di
 
-import com.example.movielist.data.MovieRepository
 import com.example.movielist.network.MovieService
 import dagger.Module
 import dagger.Provides

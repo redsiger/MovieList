@@ -2,23 +2,20 @@ package com.example.movielist.Screens.search
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.movielist.data.MovieRepository
-import com.example.movielist.di.GENRES
+import com.example.movielist.data.movie.MovieRepository
 import com.example.movielist.foundation.BaseViewModel
 import com.example.movielist.foundation.LiveResult
 import com.example.movielist.foundation.MutableLiveResult
-import com.example.movielist.network.Genre
-import com.example.movielist.network.Movie
+import com.example.movielist.network.movie.Movie
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchResultsViewModel  @Inject constructor(
-    private val repository: MovieRepository,
-    savedStateHandle: SavedStateHandle
+        private val repository: MovieRepository,
+        savedStateHandle: SavedStateHandle
 ): BaseViewModel() {
 
     private var _searchResult = MutableLiveResult<List<Movie>>(Status.InProgress)

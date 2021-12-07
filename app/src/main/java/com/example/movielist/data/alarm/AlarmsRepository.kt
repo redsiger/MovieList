@@ -1,11 +1,27 @@
-package com.example.movielist.data
+package com.example.movielist.data.alarm
 
 import com.example.movielist.Screens.alarms.Alarm
+import com.example.movielist.data.Repository
 import com.example.movielist.utils.Status
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AlarmsRepository(
     private val dao: AlarmsDao
 ): Repository {
+
+    var alarms: Status<List<Alarm>> = Status.InProgress
+
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            alarms = getAlarms()
+        }
+    }
+
+    suspend fun updateAlarms() {
+        alarms = getAlarms()
+    }
 
     suspend fun getAlarms(): Status<List<Alarm>> {
         return try {

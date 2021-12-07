@@ -2,6 +2,8 @@ package com.example.movielist.network
 
 import com.example.movielist.Screens.movieDetail.credits.CreditsResponse
 import com.example.movielist.network.MovieById.MovieById
+import com.example.movielist.network.movie.GenresResponse
+import com.example.movielist.network.movie.MovieResponse
 import com.example.movielist.network.recommentadions.RecommendationsResponse
 import retrofit2.Response
 import retrofit2.http.GET

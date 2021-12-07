@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movielist.R
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
-import com.example.movielist.network.Movie
 import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.squareup.picasso.Picasso
 

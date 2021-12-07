@@ -1,7 +1,7 @@
 package com.example.movielist.di
 
 import android.content.Context
-import com.example.movielist.data.AlarmsDao
+import com.example.movielist.data.alarm.AlarmsDao
 import com.example.movielist.data.AppDatabase
 import dagger.Module
 import dagger.Provides

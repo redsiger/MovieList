@@ -1,8 +1,8 @@
-package com.example.movielist.network.paging
+package com.example.movielist.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movielist.network.Movie
+import com.example.movielist.network.movie.Movie
 import com.example.movielist.network.MovieService
 import kotlinx.coroutines.delay
 import retrofit2.HttpException

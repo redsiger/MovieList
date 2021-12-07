@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.movielist.databinding.FragmentAlarmModalBinding
 import com.example.movielist.di.LOCALE
 import com.example.movielist.foundation.BaseModalFragment
+import com.example.movielist.network.movie.Movie
 import com.example.movielist.utils.Status
 import com.example.movielist.utils.showDatePicker
 import dagger.hilt.android.AndroidEntryPoint

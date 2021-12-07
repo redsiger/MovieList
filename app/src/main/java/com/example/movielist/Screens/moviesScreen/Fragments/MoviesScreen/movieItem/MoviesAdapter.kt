@@ -3,7 +3,6 @@ package com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -12,8 +11,6 @@ import com.example.movielist.R
 import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
 import com.example.movielist.foundation.BaseMovieItem
 import com.example.movielist.foundation.RecyclerItemWidthListener
-import com.example.movielist.network.Movie
-import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.squareup.picasso.Picasso
 
 /**
