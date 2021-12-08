@@ -1,6 +1,6 @@
 package com.example.movielist.network
 
-import com.example.movielist.Screens.movieDetail.credits.CreditsResponse
+import com.example.movielist.screens.movieDetail.credits.CreditsResponse
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.movie.GenresResponse
 import com.example.movielist.network.movie.MovieResponse

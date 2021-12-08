@@ -1,13 +1,11 @@
 package com.example.movielist.foundation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.children
-import com.example.movielist.Screens.movieDetail.MovieDetailFragment
 import com.example.movielist.utils.Status
 
 /**

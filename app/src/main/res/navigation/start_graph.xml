@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/moviesScreenFragment"
-        android:name="com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.MoviesScreenFragment"
+        android:name="com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.MoviesScreenFragment"
         android:label="@string/app_name">
         <action
             android:id="@+id/action_moviesScreenFragment_to_movie_detail_graph"
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.movielist.Screens.search.SearchFragment"
+        android:name="com.example.movielist.screens.search.SearchFragment"
         android:label="@string/empty">
         <action
             android:id="@+id/action_searchFragment_to_searchResultsFragment"
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/searchResultsFragment"
-        android:name="com.example.movielist.Screens.search.SearchResultsFragment"
+        android:name="com.example.movielist.screens.search.SearchResultsFragment"
         android:label="{searchQuery}">
         <argument
             android:name="searchQuery"
@@ -73,7 +73,7 @@
 
     <dialog
         android:id="@+id/movieModalFragment"
-        android:name="com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.MovieModalFragment"
+        android:name="com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.MovieModalFragment"
         android:label="@string/empty">
         <argument
             android:name="movie"
@@ -90,7 +90,7 @@
 
     <dialog
         android:id="@+id/discoverModalFragment"
-        android:name="com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.DiscoverModalFragment"
+        android:name="com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.DiscoverModalFragment"
         android:label="DiscoverModalFragment" />
     <action
         android:id="@+id/action_global_discoverModal"

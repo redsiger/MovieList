@@ -37,7 +37,7 @@ class AlarmReceiver: BroadcastReceiver() {
                         movieId,
                         movieId
                 )
-                mAppNotificator.updateAlarms()
+//                mAppNotificator.updateAlarms()
             }
         }
         Log.e("onReceive", "END")

@@ -18,7 +18,7 @@
         android:theme="@style/Theme.MovieList">
 
         <!--SplashScreen-->
-        <activity android:name="com.example.movielist.Screens.splashScreen.SplashScreenActivity"
+        <activity android:name="com.example.movielist.screens.splashScreen.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
@@ -29,7 +29,7 @@
 
         <!--MainActivity-->
         <activity
-            android:name="com.example.movielist.Screens.moviesScreen.MainActivity"
+            android:name="com.example.movielist.screens.moviesScreen.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,9 @@
 package com.example.movielist.data.alarm
 
-import com.example.movielist.Screens.alarms.Alarm
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import com.example.movielist.screens.alarms.Alarm
 import com.example.movielist.data.Repository
 import com.example.movielist.utils.Status
 import kotlinx.coroutines.CoroutineScope
@@ -11,17 +14,19 @@ class AlarmsRepository(
     private val dao: AlarmsDao
 ): Repository {
 
-    var alarms: Status<List<Alarm>> = Status.InProgress
-
-    init {
-        CoroutineScope(Dispatchers.Default).launch {
-            alarms = getAlarms()
-        }
+    var alarms: LiveData<Status<List<Alarm>>> = liveData{
+        emit(getAlarms())
     }
 
-    suspend fun updateAlarms() {
-        alarms = getAlarms()
-    }
+    //        init {
+    //            CoroutineScope(Dispatchers.Default).launch {
+    //                alarms = getAlarms()
+    //            }
+    //        }
+
+    //        suspend fun updateAlarms() {
+    //            alarms = getAlarms()
+    //        }
 
     suspend fun getAlarms(): Status<List<Alarm>> {
         return try {
@@ -33,7 +38,12 @@ class AlarmsRepository(
 
     suspend fun getAlarm(movieId: Int): Status<Alarm> {
         return try {
-            Status.Success(dao.getAlarm(movieId))
+            val alarm = dao.getAlarm(movieId)
+            if (alarm != null) {
+                Status.Success(alarm)
+            } else {
+                Status.Error(Exception())
+            }
         } catch (e: Exception) {
             return Status.Error(e)
         }

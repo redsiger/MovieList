@@ -6,13 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.movielist.R
-import com.example.movielist.Screens.alarms.Alarm
-import com.example.movielist.Screens.moviesScreen.MainActivity
-import com.example.movielist.data.alarm.AlarmsDao
+import com.example.movielist.screens.alarms.Alarm
+import com.example.movielist.screens.moviesScreen.MainActivity
 import com.example.movielist.data.alarm.AlarmsRepository
 
 class AppNotificator(private val mContext: Context,
@@ -20,9 +20,9 @@ class AppNotificator(private val mContext: Context,
                      private val mNotificationManagerCompat: NotificationManagerCompat,
                      private val mAlarmsRepository: AlarmsRepository) {
 
-    suspend fun updateAlarms() {
-        mAlarmsRepository.updateAlarms()
-    }
+//    suspend fun updateAlarms() {
+//        mAlarmsRepository.updateAlarms()
+//    }
 
     suspend fun setNotification(movieId: Int, movieTitle: String, time: Long) {
         val pendingIntent = createPendingIntent(movieId, movieTitle)
@@ -66,6 +66,7 @@ class AppNotificator(private val mContext: Context,
                         time = time
                 )
         )
+        Log.e("APP_NOTIFICATOR", "alarm created")
     }
     suspend fun createAlarm(alarm: Alarm) {
         mAlarmsRepository.addAlarm(alarm)

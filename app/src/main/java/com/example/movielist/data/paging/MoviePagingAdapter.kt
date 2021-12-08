@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.movielist.R
-import com.example.movielist.Screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
+import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
 import com.example.movielist.network.movie.Movie
 import com.squareup.picasso.Picasso
 
