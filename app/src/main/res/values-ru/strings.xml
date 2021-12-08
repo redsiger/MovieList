@@ -23,4 +23,5 @@
     <string name="discover_movies_title">Откройте для себя</string>
     <string name="btn_delete_title">Удалить</string>
     <string name="app_notificationRemind_text">Вы хотели посмотреть этот фильм</string>
+    <string name="alarm_not_found_text">Будильник не найден</string>
 </resources>

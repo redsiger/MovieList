@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.os.bundleOf
+import com.example.movielist.data.RepositoryListener
 import com.example.movielist.di.CHANNEL_1_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -42,4 +43,5 @@ class AlarmReceiver: BroadcastReceiver() {
         }
         Log.e("onReceive", "END")
     }
+
 }

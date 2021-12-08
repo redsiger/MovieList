@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import com.example.movielist.foundation.BaseModalFragment
 import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.Status
 import com.example.movielist.utils.showDatePicker
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -56,8 +58,10 @@ class AlarmModalFragment: BaseModalFragment() {
                     renderModalScreen(status.data)
                 }
                 is Status.Error -> {
-                    Log.e("AlarmModalFragment", status.exception.toString())
-                    mViewModel.getAlarms()
+                    showError()
+                    Log.e("AlarmModalErrorMessage", status.exception.message.toString())
+                    val errorMessage = status.exception.message ?: "oops, something went wrong..."
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                     findNavController().navigateUp()
                 }
                 else -> {
@@ -68,6 +72,13 @@ class AlarmModalFragment: BaseModalFragment() {
             }
         })
         mViewModel.getAlarm(alarm.movieId)
+    }
+
+    private fun showError() {
+        mBinding.alarmModalLoading.visibility = View.GONE
+        mBinding.alarmModalDeleteBtn.visibility = View.INVISIBLE
+        mBinding.alarmModalRemindBtn.visibility = View.INVISIBLE
+        mBinding.alarmModalTitleText.visibility = View.INVISIBLE
     }
 
     private fun renderModalScreen(data: Alarm) {
