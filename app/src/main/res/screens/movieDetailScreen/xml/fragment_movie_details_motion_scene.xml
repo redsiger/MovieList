@@ -30,7 +30,6 @@
 
         <OnSwipe
             motion:maxAcceleration="40"
-            motion:autoCompleteMode="spring"
             motion:touchAnchorId="@id/movieDetail_contentScrollingContainer" />
     </Transition>
 
