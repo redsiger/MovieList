@@ -16,7 +16,6 @@ import com.example.movielist.foundation.BaseModalFragment
 import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.Status
 import com.example.movielist.utils.showDatePicker
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -34,18 +33,12 @@ class AlarmModalFragment: BaseModalFragment() {
         args.alarm
     }
 
-    @Inject lateinit var mAppNotificator: AppNotificator
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAlarmModalBinding.inflate(inflater, container, false)
-
-//        mBinding.alarmModalTitleText.text = alarm.movieTitle
-//        initBtnRemind()
-//        initBtnDelete()
 
         initStateObserver()
         return mBinding.root
@@ -97,11 +90,8 @@ class AlarmModalFragment: BaseModalFragment() {
             setOnClickListener {
                 showDatePicker(alarm.time) { time ->
                     lifecycleScope.launch {
-                        mAppNotificator.setNotification(alarm.movieId, alarm.movieTitle, time)
+                        mViewModel.setReminder(alarm.movieId, alarm.movieTitle, time)
                     }
-                    mViewModel.getAlarms()
-//                    mViewModel.addAlarm(alarm.copy(time = time))
-                    findNavController().navigateUp()
                 }
             }
         }
@@ -110,8 +100,7 @@ class AlarmModalFragment: BaseModalFragment() {
     private fun initBtnDelete(alarm: Alarm) {
         mBinding.alarmModalDeleteBtn.setOnClickListener {
             lifecycleScope.launch {
-//                mViewModel.deleteAlarm(alarm.movieId)
-                mAppNotificator.unsetNotification(alarm.movieId, alarm.movieTitle)
+                mViewModel.unsetReminder(alarm.movieId, alarm.movieTitle)
             }
             findNavController().navigateUp()
         }

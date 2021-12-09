@@ -3,12 +3,10 @@
     <item
         android:icon="@drawable/ic_movie"
         android:id="@id/start_graph"
-        android:menuCategory="secondary"
-        android:title="Main"/>
+        android:title="@string/ic_main_text"/>
 
     <item
         android:icon="@drawable/ic_alarm"
         android:id="@id/alarms_graph"
-        android:menuCategory="secondary"
-        android:title="Alarms"/>
+        android:title="@string/ic_alarms_text"/>
 </menu>

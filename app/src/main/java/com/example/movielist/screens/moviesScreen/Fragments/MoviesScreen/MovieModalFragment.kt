@@ -14,7 +14,6 @@ import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.showDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,7 +39,7 @@ class MovieModalFragment: BaseModalFragment() {
         mBinding.movieDetailRemindBtn.setOnClickListener {
             showDatePicker { time ->
                 lifecycleScope.launch {
-                    mAppNotificator.setNotification(
+                    mAppNotificator.setReminder(
                             movie.id,
                             movie.title,
                             time

@@ -20,6 +20,7 @@ import com.example.movielist.foundation.BaseFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.*
@@ -196,6 +197,33 @@ fun Fragment.setHours(calendar: Calendar, hours: Int) {
         calendar.set(Calendar.HOUR, hours)
         calendar.set(Calendar.AM_PM, 0)
     }
+}
+
+fun Fragment.showSnackBar(view: View,
+                          anchorView: View?,
+                          textResId: Int,
+                          actionTextResId: Int,
+                          action: View.OnClickListener?
+) {
+    val snackbar = Snackbar.make(view, textResId, Snackbar.LENGTH_SHORT)
+    action?.let { snackbar.setAction(actionTextResId, action) }
+    anchorView?.let { snackbar.setAnchorView(anchorView) }
+
+    snackbar.show()
+}
+
+fun Fragment.showSnackBar(view: View,
+                          textResId: Int,
+                          actionTextResId: Int,
+                          action: View.OnClickListener
+) {
+    showSnackBar(view, null, textResId, actionTextResId, action)
+}
+
+fun Fragment.showSnackBar(view: View,
+                          textResId: Int
+) {
+    showSnackBar(view, null, textResId, -1, null)
 }
 
 fun TextView.setTruncableText(text: String, maxLength: Int, maxLines: Int) {

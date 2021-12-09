@@ -26,16 +26,8 @@ class AlarmsRepository(
 
     private fun update() { listeners.forEach { it.dataChanged() } }
     private fun alarmDeleted(movieId: Int) { listeners.forEach { it.alarmDeleted(movieId) } }
+    private fun alarmAdded(movieId: Int) { listeners.forEach { it.alarmAdded(movieId) } }
 
-    //        init {
-    //            CoroutineScope(Dispatchers.Default).launch {
-    //                alarms = getAlarms()
-    //            }
-    //        }
-
-    //        suspend fun updateAlarms() {
-    //            alarms = getAlarms()
-    //        }
 
     suspend fun getAlarms(): Status<List<Alarm>> {
         return try {
@@ -67,6 +59,7 @@ class AlarmsRepository(
 
     suspend fun addAlarm(alarm: Alarm) {
         dao.addAlarm(alarm)
+        alarmAdded(alarm.movieId)
         update()
     }
 }

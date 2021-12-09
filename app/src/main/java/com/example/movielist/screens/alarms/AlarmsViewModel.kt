@@ -25,7 +25,6 @@ class AlarmsViewModel @Inject constructor(
     private val _movieId = MutableLiveData<Int>()
 
     val modalScreenState: LiveData<Status<Alarm>> = _movieId
-        .distinctUntilChanged()
         .switchMap { movieId ->
             liveData {
                 when {
@@ -34,6 +33,20 @@ class AlarmsViewModel @Inject constructor(
                 }
             }
         }
+
+    fun setReminder(movieId: Int, movieTitle: String, time: Long) {
+        viewModelScope.launch {
+            appNotificator.setReminder(movieId, movieTitle, time)
+            _movieId.postValue(movieId)
+        }
+
+    }
+
+    fun unsetReminder(movieId: Int, movieTitle: String) {
+        viewModelScope.launch {
+            appNotificator.unsetReminder(movieId, movieTitle)
+        }
+    }
 
     fun getAlarm(movieId: Int) {
         viewModelScope.launch {

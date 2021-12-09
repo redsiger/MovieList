@@ -21,11 +21,9 @@ import com.example.movielist.di.TMDB_IMG_URL
 import com.example.movielist.foundation.BaseMotionFragment
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.recommentadions.MovieRecommendation
+import com.example.movielist.screens.alarms.Alarm
 import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.movieItem.OffsetRecyclerDecorator
-import com.example.movielist.utils.onTryAgain
-import com.example.movielist.utils.renderSimpleResult
-import com.example.movielist.utils.setTruncableText
-import com.example.movielist.utils.showDatePicker
+import com.example.movielist.utils.*
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
@@ -38,15 +36,11 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
     private var _binding: FragmentMovieDetailBinding? = null
     private val mBinding get() = _binding!!
     private val mViewModel: MovieDetailViewModel by viewModels()
-//    private val args by navArgs<MovieDetailFragmentArgs>()
-//    private val movieId by lazy {
-//        args.movieId
-//    }
+
     @Inject lateinit var mPicasso: Picasso
     private val mCastAdapter: CastAdapter by lazy { CastAdapter(mPicasso) }
     private val mCrewAdapter: CrewAdapter by lazy { CrewAdapter(mPicasso) }
     private val mRecommendationsAdapter: MovieAdapter by lazy { MovieAdapter(mPicasso) }
-//    private val mLinearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
     override var _transitionState: Bundle? = null
     override var _motionLayout: MotionLayout? = null
@@ -129,7 +123,7 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
     }
 
     private fun renderMovieDetail(state: MovieDetailViewModel.MovieDetailState) {
-        setRemindBtn(state.movie, state.alarmIsSet)
+        setRemindBtn(state.movie, state.alarm)
         setToolbarContent(state.movie)
         setContentScrolling(state.movie)
         setCast(state.castList)
@@ -137,23 +131,26 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
         setRecommendations(state.recommendationsList)
     }
 
-    private fun setRemindBtn(movie: MovieById, alarmIsSet: Boolean) {
-        if (alarmIsSet) {
-            mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_delete_reminder_text)
-            mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_delete, null)
-            mBinding.movieDetailRemindBtn.setOnClickListener {
-                mViewModel.unsetNotification(movie.id, movie.title)
-            }
-        } else {
-            mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_remind_me_later_text)
-            mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_alarm, null)
-            mBinding.movieDetailRemindBtn.setOnClickListener {
-                showDatePicker { time ->
-                    mViewModel.setNotification(movie.id, movie.title, time)
-                }
+    private fun setRemindBtn(movie: MovieById, alarm: Alarm?) {
+        mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_remind_me_later_text)
+        mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_alarm, null)
+        val deleteAlarm = View.OnClickListener { mViewModel.unsetNotification(movie.id, movie.title) }
+        mBinding.movieDetailRemindBtn.setOnClickListener {
+            showDatePicker { time ->
+                mViewModel.setNotification(movie.id, movie.title, time)
+                showSnackBar(mBinding.root, R.string.reminderCreated_text, R.string.btn_cancel_text, deleteAlarm)
             }
         }
 
+        alarm?.let { alrm ->
+            mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_delete_reminder_text)
+            mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_delete, null)
+            val createAlarm = View.OnClickListener { mViewModel.setNotification(alrm.movieId, alrm.movieTitle, alrm.time)}
+            mBinding.movieDetailRemindBtn.setOnClickListener {
+                mViewModel.unsetNotification(movie.id, movie.title)
+                showSnackBar(mBinding.root, R.string.reminderDeleted_text, R.string.btn_cancel_text, createAlarm)
+            }
+        }
     }
 
     private fun setShowTrailerClickListener(url: String) {

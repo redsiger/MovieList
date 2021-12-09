@@ -16,7 +16,6 @@ import com.example.movielist.screens.alarms.Alarm
 import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +35,7 @@ class MovieDetailViewModel @Inject constructor(
     /**
      * Input values for Screen state
      */
-    private val _alarm = MutableLiveData<Boolean>(false)
+    private val _alarm = MutableLiveResult<Alarm>(Status.InProgress)
     private val _movie = MutableLiveResult<MovieById>(Status.InProgress)
     private val _cast = MutableLiveResult<List<Cast>>(Status.InProgress)
     private val _crew = MutableLiveResult<List<Crew>>(Status.InProgress)
@@ -55,13 +54,13 @@ class MovieDetailViewModel @Inject constructor(
                 return
         }
 
+        val alarm = _alarm.value?.extractData
         val movie = _movie.value?.extractData ?: return
         val cast = _cast.value?.extractData ?: return
         val crew = _crew.value?.extractData ?: return
         val recommendations = _recommendations.value?.extractData ?: return
 
-        _screenState.value = Status.Success(MovieDetailState(_alarm.value!!, movie, cast, crew, recommendations))
-        Log.e("MERGE SOURCES STATE", _screenState.value.toString())
+        _screenState.value = Status.Success(MovieDetailState(alarm, movie, cast, crew, recommendations))
     }
 
     init {
@@ -78,22 +77,26 @@ class MovieDetailViewModel @Inject constructor(
         _screenState.addSource(_crew) { mergeSources() }
         _screenState.addSource(_recommendations) { mergeSources() }
         Log.e("INIT", "end")
-        test()
-    }
-
-    fun test() {
-        viewModelScope.launch {
-            delay(3000)
-            getAlarm(movieId)
-        }
     }
 
     fun getAlarm(movieId: Int) {
         viewModelScope.launch {
-            val response = appNotificator.getAlarm(movieId)
-            if (response.extractData is Alarm) _alarm.postValue(true) else _alarm.postValue(false)
+            _alarm.postValue(appNotificator.getAlarm(movieId))
         }
     }
+
+//    fun getAlarm(movieId: Int) {
+//        viewModelScope.launch {
+//            val response = appNotificator.getAlarm(movieId)
+//            if (response.extractData is Alarm) {
+//                _alarm.postValue(response)
+//                _alarmIsSet.postValue(true)
+//            } else {
+//                _alarm.postValue(Status.InProgress)
+//                _alarmIsSet.postValue(false)
+//            }
+//        }
+//    }
 
     fun getMovie(movieId: Int) {
         _movie.postValue(Status.InProgress)
@@ -125,13 +128,13 @@ class MovieDetailViewModel @Inject constructor(
 
     fun setNotification(movieId: Int, movieTitle: String, time: Long) {
         viewModelScope.launch {
-            appNotificator.setNotification(movieId, movieTitle, time)
+            appNotificator.setReminder(movieId, movieTitle, time)
         }
     }
 
     fun unsetNotification(movieId: Int, movieTitle: String) {
         viewModelScope.launch {
-            appNotificator.unsetNotification(movieId, movieTitle)
+            appNotificator.unsetReminder(movieId, movieTitle)
         }
     }
 
@@ -143,7 +146,7 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     data class MovieDetailState(
-        val alarmIsSet: Boolean,
+        val alarm: Alarm?,
         val movie: MovieById,
         val castList: List<Cast>,
         val crewList: List<Crew>,

@@ -25,7 +25,7 @@ class AppNotificator(private val mContext: Context,
         mAlarmsRepository.addListener(listener)
     }
 
-    suspend fun setNotification(movieId: Int, movieTitle: String, time: Long) {
+    suspend fun setReminder(movieId: Int, movieTitle: String, time: Long) {
         val pendingIntent = createPendingIntent(movieId, movieTitle)
 
         val sdk = Build.VERSION.SDK_INT
@@ -44,7 +44,7 @@ class AppNotificator(private val mContext: Context,
         createAlarm(movieId, movieTitle, time)
     }
 
-    suspend fun unsetNotification(movieId: Int, movieTitle: String) {
+    suspend fun unsetReminder(movieId: Int, movieTitle: String) {
         val pendingIntent = createPendingIntent(movieId, movieTitle)
         mAlarmManager.cancel(pendingIntent)
         deleteAlarm(movieId)
