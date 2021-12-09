@@ -21,7 +21,7 @@ class CastAdapter(private val mPicasso: Picasso): RecyclerView.Adapter<CastViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.credit_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_credit, parent, false)
         return CastViewHolder(view, mPicasso)
     }
 

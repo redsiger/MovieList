@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movielist.R
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.MovieAdapter
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.MovieModalFragment
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.movieItem.OffsetRecyclerDecorator
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.moviesPaging.MoviesPagingAdapter
+import com.example.movielist.screens.movies.MoviesScreen.MovieAdapter
+import com.example.movielist.screens.movies.MoviesScreen.movieModal.MovieModalFragment
+import com.example.movielist.screens.movies.MoviesScreen.movieItem.OffsetRecyclerDecorator
+import com.example.movielist.screens.movies.MoviesScreen.moviesPaging.MoviesPagingAdapter
 import com.example.movielist.databinding.PartErrorAndLoadingBinding
 import com.example.movielist.foundation.BaseFragment
 import com.google.android.material.datepicker.CalendarConstraints

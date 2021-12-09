@@ -29,7 +29,7 @@
 
         <!--MainActivity-->
         <activity
-            android:name="com.example.movielist.screens.moviesScreen.MainActivity"
+            android:name="com.example.movielist.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

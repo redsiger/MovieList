@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  Toolbar  -->
-    <color name="toolbar_text_color">@color/white</color>
-
     <!-- Main colors -->
 
     <!-- Day -->
@@ -26,18 +23,42 @@
     <color name="SecondaryVariant_night">#c5a600</color>
     <color name="OnSecondary_night">#3e2723</color>
 
-    
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  Toolbar  -->
+
+    <color name="toolbar_text_color">@color/white</color>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
     <!-- Text color -->
 
     <!-- Day -->
-
     <color name="primary_text_color_day">@color/black</color>
     <color name="secondary_text_color">#808080</color>
 
     <!-- Night -->
-
     <color name="primary_text_color_night">@color/white</color>
 
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  MovieDetailFragment  -->
+    <color name="colorRating">#fbce04</color>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  Item movie  -->
+
+    <!-- Rating color -->
+    <color name="item_movie_rating_low">#ff3333</color>
+    <color name="item_movie_rating_medium">#4d4d4d</color>
+    <color name="item_movie_rating_high">#2eb82e</color>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  Common colors  -->
+
+    <!--  Black  -->
     <color name="lightBlack10">#1a1a1a</color>
     <color name="lightBlack20">#333333</color>
     <color name="lightBlack30">#4d4d4d</color>
@@ -51,5 +72,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!--////////////////////////////////////////////////////////////////////-->
 
 </resources>

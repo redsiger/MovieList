@@ -19,7 +19,7 @@ class CrewAdapter(private val mPicasso: Picasso): RecyclerView.Adapter<CrewViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrewViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.credit_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_credit, parent, false)
         return CrewViewHolder(view, mPicasso)
     }
 

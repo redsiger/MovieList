@@ -23,12 +23,12 @@
     <string name="discover_movies_title">Откройте для себя</string>
     <string name="btn_delete_title">Удалить</string>
     <string name="app_notificationRemind_text">Вы хотели посмотреть этот фильм</string>
-    <string name="alarm_not_found_text">Будильник не найден</string>
+    <string name="reminder_not_found_text">Напоминание не найдено</string>
     <string name="btn_delete_reminder_text">удалить напоминание</string>
     <string name="ic_search_text">Поиск</string>
-    <string name="noAlarmsYet_text">Напоминаний пока нет</string>
+    <string name="noRemindersYet_text">Напоминаний пока нет</string>
     <string name="ic_main_text">Главная</string>
-    <string name="ic_alarms_text">Напоминания</string>
+    <string name="ic_reminders_text">Напоминания</string>
     <string name="btn_cancel_text">@android:string/cancel</string>
     <string name="reminderDeleted_text">Напоминание удалено</string>
     <string name="reminderCreated_text">Напоминание создано</string>

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.movielist.screens.moviesScreen.MainActivity
+import com.example.movielist.MainActivity
 import com.example.movielist.network.movie.Movie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*

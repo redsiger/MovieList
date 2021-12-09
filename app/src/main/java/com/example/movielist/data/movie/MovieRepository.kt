@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.example.movielist.screens.movieDetail.credits.Cast
 import com.example.movielist.screens.movieDetail.credits.CreditsResponse
 import com.example.movielist.screens.movieDetail.credits.Crew
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.moviesPaging.MoviesPagingSource
+import com.example.movielist.screens.movies.MoviesScreen.moviesPaging.MoviesPagingSource
 import com.example.movielist.data.Repository
 import com.example.movielist.network.movie.Movie
 import com.example.movielist.network.MovieById.MovieById

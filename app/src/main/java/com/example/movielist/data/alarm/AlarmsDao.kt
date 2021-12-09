@@ -4,20 +4,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movielist.screens.alarms.Alarm
+import com.example.movielist.screens.reminders.data.Reminder
 
 @Dao
 interface AlarmsDao {
 
-    @Query("SELECT * FROM alarms")
-    suspend fun getAlarms(): List<Alarm>
+    @Query("SELECT * FROM reminders")
+    suspend fun getAlarms(): List<Reminder>
 
-    @Query("SELECT * FROM alarms WHERE movieId = :movieId")
-    suspend fun getAlarm(movieId: Int): Alarm
+    @Query("SELECT * FROM reminders WHERE movieId = :movieId")
+    suspend fun getAlarm(movieId: Int): Reminder
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAlarm(alarm: Alarm)
+    suspend fun addAlarm(reminder: Reminder)
 
-    @Query("DELETE FROM alarms WHERE movieId = :movieId")
+    @Query("DELETE FROM reminders WHERE movieId = :movieId")
     suspend fun deleteAlarm(movieId: Int)
 }

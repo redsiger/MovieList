@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.movielist.screens.alarms.Alarm
+import com.example.movielist.screens.reminders.data.Reminder
 import com.example.movielist.data.alarm.AlarmsDao
 
 @Database(entities = [
-    Alarm::class],
+    Reminder::class],
     version = 1)
 abstract class AppDatabase: RoomDatabase() {
 

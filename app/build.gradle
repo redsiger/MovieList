@@ -51,7 +51,7 @@ android {
                         'src\\main\\res\\screens\\creditItem',
                         'src\\main\\res\\screens\\search',
                         'src\\main\\res\\screens\\discover',
-                        'src\\main\\res\\screens\\alarms'
+                        'src\\main\\res\\screens\\reminders'
             }
         }
     }

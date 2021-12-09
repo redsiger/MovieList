@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movielist.R
-import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.movieItem.MovieViewHolder
+import com.example.movielist.screens.movies.MoviesScreen.movieItem.MovieViewHolder
 import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.squareup.picasso.Picasso
 

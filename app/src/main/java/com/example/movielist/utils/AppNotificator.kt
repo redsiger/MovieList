@@ -12,8 +12,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.movielist.R
 import com.example.movielist.data.RepositoryListener
-import com.example.movielist.screens.alarms.Alarm
-import com.example.movielist.screens.moviesScreen.MainActivity
+import com.example.movielist.screens.reminders.data.Reminder
+import com.example.movielist.MainActivity
 import com.example.movielist.data.alarm.AlarmsRepository
 
 class AppNotificator(private val mContext: Context,
@@ -61,7 +61,7 @@ class AppNotificator(private val mContext: Context,
 
     suspend fun createAlarm(movieId: Int, movieTitle: String, time: Long) {
         mAlarmsRepository.addAlarm(
-                Alarm(
+                Reminder(
                         movieId = movieId,
                         movieTitle = movieTitle,
                         time = time
@@ -69,8 +69,8 @@ class AppNotificator(private val mContext: Context,
         )
         Log.e("APP_NOTIFICATOR", "alarm created")
     }
-    suspend fun createAlarm(alarm: Alarm) {
-        mAlarmsRepository.addAlarm(alarm)
+    suspend fun createAlarm(reminder: Reminder) {
+        mAlarmsRepository.addAlarm(reminder)
     }
 
     suspend fun deleteAlarm(movieId: Int) {
@@ -119,11 +119,11 @@ class AppNotificator(private val mContext: Context,
         mNotificationManagerCompat.cancel(notificationId)
     }
 
-    suspend fun getAlarm(movieId: Int): Status<Alarm> {
+    suspend fun getAlarm(movieId: Int): Status<Reminder> {
         return mAlarmsRepository.getAlarm(movieId)
     }
 
-    suspend fun getAlarms(): Status<List<Alarm>> {
+    suspend fun getAlarms(): Status<List<Reminder>> {
         return mAlarmsRepository.getAlarms()
     }
 }
