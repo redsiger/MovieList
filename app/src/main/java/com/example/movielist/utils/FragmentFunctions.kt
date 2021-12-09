@@ -1,9 +1,11 @@
 package com.example.movielist.utils
 
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -117,6 +119,10 @@ fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdap
     )
 }
 
+/**
+ * Function to show MaterialDatePicker and MaterialTimePicker for date and time selection
+ * Also takes lambda which is executed after time is selected
+ */
 fun Fragment.showDatePicker(action: (time: Long) -> Unit, calendar: Calendar, time: Long) {
     Log.e("CALENDAR", calendar.time.toString())
     val constraints =
@@ -179,7 +185,6 @@ fun Fragment.getTimePicker(time: Long, calendar: Calendar, action: (time: Long) 
         Log.e("DatePickerD", calendar.toString())
         Log.e("DatePickerD", calendar.timeInMillis.toString())
         action(calendar.timeInMillis)
-//            setAlarm(calendar.timeInMillis, movie)
     }
 
     return timePicker
@@ -191,4 +196,19 @@ fun Fragment.setHours(calendar: Calendar, hours: Int) {
         calendar.set(Calendar.HOUR, hours)
         calendar.set(Calendar.AM_PM, 0)
     }
+}
+
+fun TextView.setTruncableText(text: String, maxLength: Int, maxLines: Int) {
+    if (text.length > maxLength) {
+        this.maxLines = maxLines
+        this.ellipsize = TextUtils.TruncateAt.END
+        this.text = text
+        this.setOnClickListener {
+            if (this.maxLines < Integer.MAX_VALUE) {
+                this.maxLines = Integer.MAX_VALUE
+            } else {
+                this.maxLines = maxLines
+            }
+        }
+    } else this.text = text
 }

@@ -5,7 +5,7 @@
     <string name="genre_is_undefined">жанр не определен</string>
     <string name="btn_try_again">повторить</string>
     <string name="common_error_message">Что-то произошло не так. Пожалуйста, повторите позже</string>
-    <string name="btn_remind_me_later">Напомнить</string>
+    <string name="btn_remind_me_later_text">Создать напоминание</string>
     <string name="movie_detail_about_title">О фильме</string>
     <string name="movie_detail_about_original_title">Оригинальное название</string>
     <string name="movie_detail_genres_title">Жанр</string>
@@ -24,4 +24,7 @@
     <string name="btn_delete_title">Удалить</string>
     <string name="app_notificationRemind_text">Вы хотели посмотреть этот фильм</string>
     <string name="alarm_not_found_text">Будильник не найден</string>
+    <string name="btn_delete_reminder_text">удалить напоминание</string>
+    <string name="ic_search_text">Поиск</string>
+    <string name="noAlarmsYet_text">Напоминаний пока нет</string>
 </resources>

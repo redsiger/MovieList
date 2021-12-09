@@ -2,6 +2,7 @@ package com.example.movielist.screens.movieDetail
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.movielist.data.RepositoryListener
 import com.example.movielist.screens.movieDetail.credits.Cast
 import com.example.movielist.screens.movieDetail.credits.Crew
 import com.example.movielist.data.movie.MovieRepository
@@ -11,16 +12,20 @@ import com.example.movielist.foundation.MediatorLiveResult
 import com.example.movielist.foundation.MutableLiveResult
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.recommentadions.MovieRecommendation
+import com.example.movielist.screens.alarms.Alarm
+import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
         private val repository: MovieRepository,
+        private val appNotificator: AppNotificator,
         private val savedStateHandle: SavedStateHandle
-): BaseViewModel() {
+): BaseViewModel(), RepositoryListener {
 
     /**
      * Variable is representing Screen state
@@ -31,6 +36,7 @@ class MovieDetailViewModel @Inject constructor(
     /**
      * Input values for Screen state
      */
+    private val _alarm = MutableLiveData<Boolean>(false)
     private val _movie = MutableLiveResult<MovieById>(Status.InProgress)
     private val _cast = MutableLiveResult<List<Cast>>(Status.InProgress)
     private val _crew = MutableLiveResult<List<Crew>>(Status.InProgress)
@@ -54,21 +60,39 @@ class MovieDetailViewModel @Inject constructor(
         val crew = _crew.value?.extractData ?: return
         val recommendations = _recommendations.value?.extractData ?: return
 
-        _screenState.value = Status.Success(MovieDetailState(movie, cast, crew, recommendations))
+        _screenState.value = Status.Success(MovieDetailState(_alarm.value!!, movie, cast, crew, recommendations))
         Log.e("MERGE SOURCES STATE", _screenState.value.toString())
     }
 
     init {
         Log.e("INIT", "start")
-        _screenState.addSource(_movie) { mergeSources() }
-        _screenState.addSource(_cast) { mergeSources() }
-        _screenState.addSource(_crew) { mergeSources() }
-        _screenState.addSource(_recommendations) { mergeSources() }
+        appNotificator.addListener(this)
+        getAlarm(movieId)
         getMovie(movieId)
         getCast(movieId)
         getCrew(movieId)
         getRecommendations(movieId)
+        _screenState.addSource(_alarm) { mergeSources() }
+        _screenState.addSource(_movie) { mergeSources() }
+        _screenState.addSource(_cast) { mergeSources() }
+        _screenState.addSource(_crew) { mergeSources() }
+        _screenState.addSource(_recommendations) { mergeSources() }
         Log.e("INIT", "end")
+        test()
+    }
+
+    fun test() {
+        viewModelScope.launch {
+            delay(3000)
+            getAlarm(movieId)
+        }
+    }
+
+    fun getAlarm(movieId: Int) {
+        viewModelScope.launch {
+            val response = appNotificator.getAlarm(movieId)
+            if (response.extractData is Alarm) _alarm.postValue(true) else _alarm.postValue(false)
+        }
     }
 
     fun getMovie(movieId: Int) {
@@ -99,6 +123,18 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
+    fun setNotification(movieId: Int, movieTitle: String, time: Long) {
+        viewModelScope.launch {
+            appNotificator.setNotification(movieId, movieTitle, time)
+        }
+    }
+
+    fun unsetNotification(movieId: Int, movieTitle: String) {
+        viewModelScope.launch {
+            appNotificator.unsetNotification(movieId, movieTitle)
+        }
+    }
+
     fun tryAgain() {
         getMovie(movieId)
         getCast(movieId)
@@ -107,19 +143,20 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     data class MovieDetailState(
+        val alarmIsSet: Boolean,
         val movie: MovieById,
         val castList: List<Cast>,
         val crewList: List<Crew>,
         val recommendationsList: List<MovieRecommendation>
     )
-}
 
-//class MovieDetailViewModelFactory(private val movieId: Int): ViewModelProvider.Factory {
-//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
-//            return MovieDetailViewModel(movieId) as T
-//        }
-//        throw IllegalArgumentException("Unknown ViewModel class")
-//    }
-//
-//}
+    override fun dataChanged() {}
+
+    override fun alarmDeleted(movieId: Int) {
+        if (movieId == movieId) getAlarm(movieId)
+    }
+
+    override fun alarmAdded(movieId: Int) {
+        if (movieId == movieId) getAlarm(movieId)
+    }
+}

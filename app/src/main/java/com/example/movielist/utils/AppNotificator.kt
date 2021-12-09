@@ -21,7 +21,7 @@ class AppNotificator(private val mContext: Context,
                      private val mNotificationManagerCompat: NotificationManagerCompat,
                      private val mAlarmsRepository: AlarmsRepository) {
 
-    fun addRepositoryListener(listener: RepositoryListener) {
+    fun addListener(listener: RepositoryListener) {
         mAlarmsRepository.addListener(listener)
     }
 
@@ -117,5 +117,13 @@ class AppNotificator(private val mContext: Context,
 
     fun deleteNotification(notificationId: Int) {
         mNotificationManagerCompat.cancel(notificationId)
+    }
+
+    suspend fun getAlarm(movieId: Int): Status<Alarm> {
+        return mAlarmsRepository.getAlarm(movieId)
+    }
+
+    suspend fun getAlarms(): Status<List<Alarm>> {
+        return mAlarmsRepository.getAlarms()
     }
 }

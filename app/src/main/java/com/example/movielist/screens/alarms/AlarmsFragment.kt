@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movielist.R
-import com.example.movielist.data.RepositoryListener
 import com.example.movielist.data.alarm.AlarmsDao
 import com.example.movielist.databinding.FragmentAlarmsBinding
 import com.example.movielist.foundation.BaseFragment
@@ -40,6 +39,8 @@ class AlarmsFragment: BaseFragment(R.layout.fragment_alarms) {
     }
 
     private fun renderAlarms(alarms: List<Alarm>) {
+        if (alarms.isEmpty()) mBinding.alarmsNoAlarmsYetText.visibility = View.VISIBLE
+        else mBinding.alarmsNoAlarmsYetText.visibility = View.GONE
         mAdapter.setList(alarms)
     }
 
@@ -54,16 +55,6 @@ class AlarmsFragment: BaseFragment(R.layout.fragment_alarms) {
                 }
             }
         )
-//        mViewModel.screenStateExp.observe(
-//            viewLifecycleOwner, { status ->
-//                renderSimpleResult(
-//                    mBinding.root,
-//                    status
-//                ) {
-//                    renderAlarms(it)
-//                }
-//            }
-//        )
         onTryAgain(mBinding.root) { mViewModel.getAlarms() }
     }
 }

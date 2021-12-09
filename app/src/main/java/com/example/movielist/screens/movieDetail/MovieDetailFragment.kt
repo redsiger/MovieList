@@ -4,11 +4,10 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.os.bundleOf
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movielist.R
@@ -17,16 +16,16 @@ import com.example.movielist.screens.movieDetail.credits.Crew
 import com.example.movielist.screens.movieDetail.credits.CrewAdapter
 import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.MovieAdapter
 import com.example.movielist.databinding.FragmentMovieDetailBinding
-import com.example.movielist.di.CHANNEL_1_ID
 import com.example.movielist.di.LOCALE
 import com.example.movielist.di.TMDB_IMG_URL
 import com.example.movielist.foundation.BaseMotionFragment
 import com.example.movielist.network.MovieById.MovieById
 import com.example.movielist.network.recommentadions.MovieRecommendation
 import com.example.movielist.screens.moviesScreen.Fragments.MoviesScreen.movieItem.OffsetRecyclerDecorator
-import com.example.movielist.utils.AppNotificator
 import com.example.movielist.utils.onTryAgain
 import com.example.movielist.utils.renderSimpleResult
+import com.example.movielist.utils.setTruncableText
+import com.example.movielist.utils.showDatePicker
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
@@ -43,19 +42,11 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
 //    private val movieId by lazy {
 //        args.movieId
 //    }
-
-    @Inject lateinit var mAppNotificator: AppNotificator
-
     @Inject lateinit var mPicasso: Picasso
-    private val castAdapter: CastAdapter by lazy {
-        CastAdapter(mPicasso)
-    }
-    private val crewAdapter: CrewAdapter by lazy {
-        CrewAdapter(mPicasso)
-    }
-    private val recommendationsAdapter: MovieAdapter by lazy {
-        MovieAdapter(mPicasso)
-    }
+    private val mCastAdapter: CastAdapter by lazy { CastAdapter(mPicasso) }
+    private val mCrewAdapter: CrewAdapter by lazy { CrewAdapter(mPicasso) }
+    private val mRecommendationsAdapter: MovieAdapter by lazy { MovieAdapter(mPicasso) }
+//    private val mLinearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
     override var _transitionState: Bundle? = null
     override var _motionLayout: MotionLayout? = null
@@ -67,27 +58,14 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
         _transitionState = _motionLayout!!.transitionState
 
         setupNavigation(mBinding.movieDetailToolbar)
-        setStateObserver()
+        initFragment()
         onTryAgain(mBinding.root, { mViewModel.tryAgain() })
 
     }
 
-    private fun initRemindBtn(movie: MovieById) {
-        mBinding.movieDetailRemindBtn.setOnClickListener {
-            mAppNotificator.pushNotification(
-                    CHANNEL_1_ID,
-                    movie.title,
-                    bundleOf("movieId" to movie.id),
-                    movie.id
-            )
-        }
-        mBinding.movieDetailRemindBtn.setOnLongClickListener {
-            mAppNotificator.deleteNotification(movie.id)
-            true
-        }
-    }
+    private fun initFragment() {
+        initRecyclers()
 
-    private fun setStateObserver() {
         mViewModel.screenState.observe(
             viewLifecycleOwner, { status ->
                 renderSimpleResult(
@@ -99,13 +77,83 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
             })
     }
 
+    private fun initRecyclers() {
+        initCastRecycler()
+        initCrewRecycler()
+        initRecommendationRecycler()
+    }
+
+    private fun initCastRecycler() {
+        with (mBinding.movieDetailContentScrolling.movieDetailCastRecycler) {
+            adapter = mCastAdapter
+            val castLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = castLayoutManager
+            addItemDecoration(OffsetRecyclerDecorator(
+                marginTop = 0,
+                marginBottom = 0,
+                marginLeft = 5,
+                marginRight = 5,
+                castLayoutManager
+            ))
+        }
+    }
+
+    private fun initCrewRecycler() {
+        with (mBinding.movieDetailContentScrolling.movieDetailCrewRecycler) {
+            adapter = mCrewAdapter
+            val crewLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = crewLayoutManager
+            addItemDecoration(OffsetRecyclerDecorator(
+                marginTop = 0,
+                marginBottom = 0,
+                marginLeft = 5,
+                marginRight = 5,
+                crewLayoutManager
+            ))
+        }
+    }
+
+    private fun initRecommendationRecycler() {
+        with (mBinding.movieDetailContentScrolling.movieDetailCastRecycler) {
+            adapter = mRecommendationsAdapter
+            val recommendationLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = recommendationLayoutManager
+            addItemDecoration(OffsetRecyclerDecorator(
+                marginTop = 0,
+                marginBottom = 0,
+                marginLeft = 5,
+                marginRight = 5,
+                recommendationLayoutManager
+            ))
+        }
+    }
+
     private fun renderMovieDetail(state: MovieDetailViewModel.MovieDetailState) {
-        initRemindBtn(state.movie)
+        setRemindBtn(state.movie, state.alarmIsSet)
         setToolbarContent(state.movie)
         setContentScrolling(state.movie)
         setCast(state.castList)
         setCrew(state.crewList)
         setRecommendations(state.recommendationsList)
+    }
+
+    private fun setRemindBtn(movie: MovieById, alarmIsSet: Boolean) {
+        if (alarmIsSet) {
+            mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_delete_reminder_text)
+            mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_delete, null)
+            mBinding.movieDetailRemindBtn.setOnClickListener {
+                mViewModel.unsetNotification(movie.id, movie.title)
+            }
+        } else {
+            mBinding.movieDetailRemindBtn.text = resources.getString(R.string.btn_remind_me_later_text)
+            mBinding.movieDetailRemindBtn.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_alarm, null)
+            mBinding.movieDetailRemindBtn.setOnClickListener {
+                showDatePicker { time ->
+                    mViewModel.setNotification(movie.id, movie.title, time)
+                }
+            }
+        }
+
     }
 
     private fun setShowTrailerClickListener(url: String) {
@@ -131,50 +179,23 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
             mBinding.movieDetailContentScrolling.movieDetailRecommendationsContainer.visibility = View.GONE
             return
         }
-        with(mBinding.movieDetailContentScrolling.movieDetailRecommendationsRecycler) {
-            adapter = recommendationsAdapter
-            val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            layoutManager = linearLayoutManager
-            addItemDecoration(
-                OffsetRecyclerDecorator(
-                marginTop = 0,
-                marginBottom = 0,
-                marginLeft = 5,
-                marginRight = 5,
-                linearLayoutManager)
-            )
-        }
-        recommendationsAdapter.setList(movies)
+        mRecommendationsAdapter.setList(movies)
     }
 
     private fun setCast(cast: List<Cast>) {
-        with(mBinding.movieDetailContentScrolling.movieDetailCastRecycler) {
-            adapter = castAdapter
-            val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            layoutManager = linearLayoutManager
-            addItemDecoration(OffsetRecyclerDecorator(
-                marginTop = 0,
-                marginBottom = 0,
-                marginLeft = 5,
-                marginRight = 5,
-                linearLayoutManager))
+        if (cast.isEmpty()) {
+            mBinding.movieDetailContentScrolling.movieDetailCastContainer.visibility = View.GONE
+            return
         }
-        castAdapter.setList(cast)
+        mCastAdapter.setList(cast)
     }
 
     private fun setCrew(crew: List<Crew>) {
-        with(mBinding.movieDetailContentScrolling.movieDetailCrewRecycler) {
-            adapter = crewAdapter
-            val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            layoutManager = linearLayoutManager
-            addItemDecoration(OffsetRecyclerDecorator(
-                marginTop = 0,
-                marginBottom = 0,
-                marginLeft = 5,
-                marginRight = 5,
-                linearLayoutManager))
+        if (crew.isEmpty()) {
+            mBinding.movieDetailContentScrolling.movieDetailCrewRecycler.visibility = View.GONE
+            return
         }
-        crewAdapter.setList(crew)
+        mCrewAdapter.setList(crew)
     }
 
     private fun setToolbarContent(movie: MovieById) {
@@ -222,18 +243,11 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
                 movieDetailRatingCountText.text = getString(R.string.movie_detail_votes_count, movie.voteCount.toString())
 
                 // Overview
-                if (movie.overview.length > 100) {
-                    movieDetailOverviewText.maxLines = 3
-                    movieDetailOverviewText.ellipsize = TextUtils.TruncateAt.END
-                    movieDetailOverviewText.text = movie.overview
-                    movieDetailOverviewText.setOnClickListener {
-                        if (movieDetailOverviewText.maxLines < Integer.MAX_VALUE) {
-                            movieDetailOverviewText.maxLines = Integer.MAX_VALUE
-                        } else {
-                            movieDetailOverviewText.maxLines = 3
-                        }
-                    }
-                } else movieDetailOverviewText.text = movie.overview
+                movieDetailOverviewText.setTruncableText(
+                    text = movie.overview,
+                    maxLength = 100,
+                    maxLines = 3
+                )
 
                 // About
                 movieDetailAboutCountryText .text = movie.productionCountries.
