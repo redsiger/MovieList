@@ -114,7 +114,7 @@ class MovieDetailFragment: BaseMotionFragment(R.layout.fragment_movie_detail) {
     }
 
     private fun initRecommendationRecycler() {
-        with (mBinding.movieDetailContentScrolling.movieDetailCastRecycler) {
+        with (mBinding.movieDetailContentScrolling.movieDetailRecommendationsRecycler) {
             adapter = mRecommendationsAdapter
             val recommendationLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             layoutManager = recommendationLayoutManager

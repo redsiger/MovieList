@@ -52,11 +52,6 @@ class MoviesScreenFragment: BaseFragment(R.layout.fragment_movies_screen),
                     findNavController().navigate(R.id.action_moviesScreenFragment_to_searchFragment)
                     true
                 }
-                R.id.menu_discover_item -> {
-                    Log.e("MENU ITEM", "$it CLICKED")
-                    findNavController().navigate(R.id.action_global_discoverModal)
-                    true
-                }
                 else -> {
                     false
                 }
@@ -76,10 +71,6 @@ class MoviesScreenFragment: BaseFragment(R.layout.fragment_movies_screen),
             resources.getDimensionPixelSize(R.dimen.item_movie_img_width)
         )
 
-//        mBinding.startScreenPopularsRecycler.adapter = mPagingAdapter
-//        val layoutManager = GridLayoutManager(requireContext(), 3)
-//        mBinding.startScreenPopularsRecycler.layoutManager = layoutManager
-//        mBinding.startScreenPopularsRecycler.addItemDecoration(OffsetRecyclerDecorator(5, layoutManager))
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             mViewModel.moviesPaging.collectLatest {
@@ -87,15 +78,6 @@ class MoviesScreenFragment: BaseFragment(R.layout.fragment_movies_screen),
             }
         }
 
-
-//        mViewModel.movies.observe(viewLifecycleOwner, { status ->
-//            renderSimpleResult(
-//                root = mBinding.root,
-//                status = status,
-//                onSuccess = {
-//                    mAdapter.setList(it)
-//                } )
-//        })
 
         onTryAgain(mBinding.root, { mViewModel.tryAgain() })
     }
