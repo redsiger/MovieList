@@ -3,8 +3,7 @@ package com.example.movielist.di
 import android.app.AlarmManager
 import android.content.Context
 import androidx.core.app.NotificationManagerCompat
-import com.example.movielist.data.alarm.AlarmsDao
-import com.example.movielist.data.alarm.AlarmsRepository
+import com.example.movielist.data.reminder.RemindersRepository
 import com.example.movielist.utils.AppNotificator
 import dagger.Module
 import dagger.Provides
@@ -20,11 +19,11 @@ object NotificationModule {
     @Singleton
     @Provides
     fun provideAppNotificator(
-            @ApplicationContext context: Context,
-            alarmManager: AlarmManager,
-            notificationManagerCompat: NotificationManagerCompat,
-            alarmsRepository: AlarmsRepository
-    ): AppNotificator = AppNotificator(context, alarmManager, notificationManagerCompat, alarmsRepository)
+        @ApplicationContext context: Context,
+        alarmManager: AlarmManager,
+        notificationManagerCompat: NotificationManagerCompat,
+        remindersRepository: RemindersRepository
+    ): AppNotificator = AppNotificator(context, alarmManager, notificationManagerCompat, remindersRepository)
 
 
     @Provides

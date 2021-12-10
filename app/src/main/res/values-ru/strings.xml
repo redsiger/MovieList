@@ -32,4 +32,6 @@
     <string name="btn_cancel_text">@android:string/cancel</string>
     <string name="reminderDeleted_text">Напоминание удалено</string>
     <string name="reminderCreated_text">Напоминание создано</string>
+    <string name="datePicker_title_text">Выберите дату</string>
+    <string name="timePicker_title_text">Выберите время</string>
 </resources>

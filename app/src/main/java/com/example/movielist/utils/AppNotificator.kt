@@ -14,15 +14,15 @@ import com.example.movielist.R
 import com.example.movielist.data.RepositoryListener
 import com.example.movielist.screens.reminders.data.Reminder
 import com.example.movielist.MainActivity
-import com.example.movielist.data.alarm.AlarmsRepository
+import com.example.movielist.data.reminder.RemindersRepository
 
 class AppNotificator(private val mContext: Context,
                      private val mAlarmManager: AlarmManager,
                      private val mNotificationManagerCompat: NotificationManagerCompat,
-                     private val mAlarmsRepository: AlarmsRepository) {
+                     private val mRemindersRepository: RemindersRepository) {
 
     fun addListener(listener: RepositoryListener) {
-        mAlarmsRepository.addListener(listener)
+        mRemindersRepository.addListener(listener)
     }
 
     suspend fun setReminder(movieId: Int, movieTitle: String, time: Long) {
@@ -47,11 +47,11 @@ class AppNotificator(private val mContext: Context,
     suspend fun unsetReminder(movieId: Int, movieTitle: String) {
         val pendingIntent = createPendingIntent(movieId, movieTitle)
         mAlarmManager.cancel(pendingIntent)
-        deleteAlarm(movieId)
+        deleteReminder(movieId)
     }
 
     private fun createPendingIntent(movieId: Int, movieTitle: String): PendingIntent {
-        val intent = Intent(mContext, AlarmReceiver::class.java)
+        val intent = Intent(mContext, ReminderReceiver::class.java)
         intent.action = "PUSH_NOTIFICATION $movieId"
         intent.putExtra("movieId", movieId)
         intent.putExtra("movieTitle", movieTitle)
@@ -60,7 +60,7 @@ class AppNotificator(private val mContext: Context,
     }
 
     suspend fun createAlarm(movieId: Int, movieTitle: String, time: Long) {
-        mAlarmsRepository.addAlarm(
+        mRemindersRepository.addReminder(
                 Reminder(
                         movieId = movieId,
                         movieTitle = movieTitle,
@@ -70,21 +70,21 @@ class AppNotificator(private val mContext: Context,
         Log.e("APP_NOTIFICATOR", "alarm created")
     }
     suspend fun createAlarm(reminder: Reminder) {
-        mAlarmsRepository.addAlarm(reminder)
+        mRemindersRepository.addReminder(reminder)
     }
 
-    suspend fun deleteAlarm(movieId: Int) {
-        mAlarmsRepository.deleteAlarm(movieId)
+    suspend fun deleteReminder(movieId: Int) {
+        mRemindersRepository.deleteReminder(movieId)
     }
 
-    suspend fun pushNotificationAndDeleteAlarm(
+    suspend fun pushNotificationAndDeleteReminder(
             channel: String,
             title: String,
             bundle: Bundle,
             notificationId: Int,
     movieId: Int) {
         pushNotification(channel, title, bundle, notificationId)
-        deleteAlarm(movieId)
+        deleteReminder(movieId)
     }
 
     fun pushNotification(
@@ -119,11 +119,11 @@ class AppNotificator(private val mContext: Context,
         mNotificationManagerCompat.cancel(notificationId)
     }
 
-    suspend fun getAlarm(movieId: Int): Status<Reminder> {
-        return mAlarmsRepository.getAlarm(movieId)
+    suspend fun getReminder(movieId: Int): Status<Reminder> {
+        return mRemindersRepository.getReminder(movieId)
     }
 
-    suspend fun getAlarms(): Status<List<Reminder>> {
-        return mAlarmsRepository.getAlarms()
+    suspend fun getReminders(): Status<List<Reminder>> {
+        return mRemindersRepository.getReminders()
     }
 }

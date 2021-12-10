@@ -43,7 +43,7 @@ class SearchResultsFragment: BaseMotionFragment(R.layout.fragment_search_results
         setupNavigation(toolbar, searchQuery)
         setupGridLayoutManager(mBinding.searchResultsPopularsRecycler, mAdapter, resources.getDimensionPixelSize(R.dimen.item_movie_img_width))
         initObservers()
-        setupToolbarMenu(toolbar, R.menu.search_results_menu, menuActions)
+        setupToolbarMenu(toolbar, R.menu.menu_search_results, menuActions)
     }
 
 
@@ -56,10 +56,6 @@ class SearchResultsFragment: BaseMotionFragment(R.layout.fragment_search_results
                 R.id.menu_search_item -> {
                     Log.e("MENU ITEM", "$it CLICKED")
                     findNavController().navigate(R.id.action_global_searchFragment)
-                    true
-                }
-                R.id.menu_filter_item -> {
-                    Log.e("MENU ITEM", "$it CLICKED")
                     true
                 }
                 else -> {
@@ -79,7 +75,5 @@ class SearchResultsFragment: BaseMotionFragment(R.layout.fragment_search_results
                 }
             )
         })
-
-        mViewModel.genres.observe(viewLifecycleOwner, {})
     }
 }

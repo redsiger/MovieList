@@ -81,7 +81,7 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getAlarm(movieId: Int) {
         viewModelScope.launch {
-            _alarm.postValue(appNotificator.getAlarm(movieId))
+            _alarm.postValue(appNotificator.getReminder(movieId))
         }
     }
 
@@ -155,11 +155,11 @@ class MovieDetailViewModel @Inject constructor(
 
     override fun dataChanged() {}
 
-    override fun alarmDeleted(movieId: Int) {
+    override fun reminderDeleted(movieId: Int) {
         if (movieId == movieId) getAlarm(movieId)
     }
 
-    override fun alarmAdded(movieId: Int) {
+    override fun reminderAdded(movieId: Int) {
         if (movieId == movieId) getAlarm(movieId)
     }
 }

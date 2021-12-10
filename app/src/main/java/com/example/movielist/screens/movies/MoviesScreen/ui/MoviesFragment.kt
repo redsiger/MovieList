@@ -46,7 +46,7 @@ class MoviesFragment: BaseFragment(R.layout.fragment_movies_screen),
         _binding = FragmentMoviesScreenBinding.bind(view)
         val toolbar = mBinding.startScreenToolbar
         setupNavigation(toolbar, title = getString(R.string.app_name))
-        setupToolbarMenu(toolbar, R.menu.movies_menu) {
+        setupToolbarMenu(toolbar, R.menu.menu_movies) {
             when (it.itemId) {
                 R.id.menu_search_item -> {
                     Log.e("MENU ITEM", "$it CLICKED")

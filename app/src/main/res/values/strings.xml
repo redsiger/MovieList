@@ -32,4 +32,6 @@
     <string name="movie_detail_trailer_title">Trailer</string>
     <string name="movie_detail_cast_title">Cast</string>
     <string name="movie_detail_crew_title">Crew</string>
+    <string name="datePicker_title_text">Choose date</string>
+    <string name="timePicker_title_text">Choose time</string>
 </resources>

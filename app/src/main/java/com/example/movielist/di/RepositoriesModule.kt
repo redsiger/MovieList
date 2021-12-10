@@ -1,8 +1,8 @@
 package com.example.movielist.di
 
 import android.content.Context
-import com.example.movielist.data.alarm.AlarmsDao
-import com.example.movielist.data.alarm.AlarmsRepository
+import com.example.movielist.data.reminder.RemindersDao
+import com.example.movielist.data.reminder.RemindersRepository
 import com.example.movielist.data.movie.MovieRepository
 import com.example.movielist.network.MovieService
 import dagger.Module
@@ -23,8 +23,8 @@ object RepositoriesModule {
 
     @Singleton
     @Provides
-    fun provideAlarmsRepository(alarmsDao: AlarmsDao, context: Context): AlarmsRepository
-    = AlarmsRepository(alarmsDao, context)
+    fun provideAlarmsRepository(remindersDao: RemindersDao, context: Context): RemindersRepository
+    = RemindersRepository(remindersDao, context)
 
     @Provides
     fun provideContext(@ApplicationContext context: Context): Context = context

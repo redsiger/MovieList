@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ import com.example.movielist.foundation.BaseFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -133,7 +136,7 @@ fun Fragment.showDatePicker(action: (time: Long) -> Unit, calendar: Calendar, ti
             .build()
 
     val datePicker = MaterialDatePicker.Builder.datePicker()
-        .setTitleText("R.string.datePicker")
+        .setTitleText(R.string.datePicker_title_text)
         .setSelection(time)
         .setCalendarConstraints(constraints)
         .build()
@@ -174,7 +177,7 @@ fun Fragment.getTimePicker(time: Long, calendar: Calendar, action: (time: Long) 
         .setTimeFormat(TimeFormat.CLOCK_24H)
         .setHour(calendar.get(Calendar.HOUR_OF_DAY))
         .setMinute(calendar.get(Calendar.MINUTE))
-        .setTitleText("R.string.timePicker")
+        .setTitleText(R.string.timePicker_title_text)
         .build()
 
     calendar.timeInMillis = time
@@ -199,6 +202,9 @@ fun Fragment.setHours(calendar: Calendar, hours: Int) {
     }
 }
 
+/**
+ * Function to show Snackbar in Fragment
+ */
 fun Fragment.showSnackBar(view: View,
                           anchorView: View?,
                           textResId: Int,
@@ -226,6 +232,13 @@ fun Fragment.showSnackBar(view: View,
     showSnackBar(view, null, textResId, -1, null)
 }
 
+
+/**
+ * Makes TextView truncable.
+ * [text] - text you want to TextView to show
+ * [maxLength] - max lines of TextView when it's truncated
+ * [maxLines] - max count of chars, before TextView getting truncated
+ */
 fun TextView.setTruncableText(text: String, maxLength: Int, maxLines: Int) {
     if (text.length > maxLength) {
         this.maxLines = maxLines
@@ -239,4 +252,25 @@ fun TextView.setTruncableText(text: String, maxLength: Int, maxLines: Int) {
             }
         }
     } else this.text = text
+}
+
+/**
+ * Makes View visible
+ */
+fun View.showView() {
+    this.isVisible = true
+}
+
+/**
+ * Hides View
+ */
+fun View.hideView() {
+    this.isVisible = false
+}
+
+/**
+ * Gones View
+ */
+fun View.goneView() {
+    this.isGone = true
 }

@@ -39,7 +39,7 @@
 
         <!-- AlarmReceiver -->
         <receiver
-            android:name=".utils.AlarmReceiver"
+            android:name=".utils.ReminderReceiver"
             android:enabled="true"
             android:exported="true" >
         </receiver>

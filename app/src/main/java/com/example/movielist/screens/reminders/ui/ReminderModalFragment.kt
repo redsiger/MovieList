@@ -14,8 +14,7 @@ import com.example.movielist.databinding.FragmentReminderModalBinding
 import com.example.movielist.di.LOCALE
 import com.example.movielist.foundation.BaseModalFragment
 import com.example.movielist.screens.reminders.data.Reminder
-import com.example.movielist.utils.Status
-import com.example.movielist.utils.showDatePicker
+import com.example.movielist.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -32,15 +31,24 @@ class ReminderModalFragment: BaseModalFragment() {
         args.reminder
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getReminder()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentReminderModalBinding.inflate(inflater, container, false)
-
+        getReminder()
         initStateObserver()
         return mBinding.root
+    }
+
+    private fun getReminder() {
+        mViewModel.getReminder(reminder.movieId)
     }
 
     private fun initStateObserver() {
@@ -57,34 +65,34 @@ class ReminderModalFragment: BaseModalFragment() {
                     findNavController().navigateUp()
                 }
                 else -> {
-                    mBinding.alarmModalDeleteBtn.visibility = View.INVISIBLE
-                    mBinding.alarmModalRemindBtn.visibility = View.INVISIBLE
-                    mBinding.alarmModalLoading.visibility = View.VISIBLE
+                    mBinding.reminderModalDeleteBtn.hideView()
+                    mBinding.reminderModalRemindBtn.hideView()
+                    mBinding.reminderModalLoading.showView()
                 }
             }
         })
-        mViewModel.getAlarm(reminder.movieId)
+        mViewModel.getReminder(reminder.movieId)
     }
 
     private fun showError() {
-        mBinding.alarmModalLoading.visibility = View.GONE
-        mBinding.alarmModalDeleteBtn.visibility = View.INVISIBLE
-        mBinding.alarmModalRemindBtn.visibility = View.INVISIBLE
-        mBinding.alarmModalTitleText.visibility = View.INVISIBLE
+        mBinding.reminderModalLoading.goneView()
+        mBinding.reminderModalDeleteBtn.hideView()
+        mBinding.reminderModalRemindBtn.hideView()
+        mBinding.reminderModalTitleText.hideView()
     }
 
     private fun renderModalScreen(data: Reminder) {
-        mBinding.alarmModalLoading.visibility = View.GONE
-        mBinding.alarmModalDeleteBtn.visibility = View.VISIBLE
-        mBinding.alarmModalRemindBtn.visibility = View.VISIBLE
-        mBinding.alarmModalTitleText.text = data.movieTitle
+        mBinding.reminderModalLoading.goneView()
+        mBinding.reminderModalDeleteBtn.showView()
+        mBinding.reminderModalRemindBtn.showView()
+        mBinding.reminderModalTitleText.text = data.movieTitle
         initBtnRemind(data)
         initBtnDelete(data)
     }
 
     private fun initBtnRemind(reminder: Reminder) {
         val dateFormatter = SimpleDateFormat("dd-MMMM-yyyy HH:mm", LOCALE)
-        with(mBinding.alarmModalRemindBtn) {
+        with(mBinding.reminderModalRemindBtn) {
             text = dateFormatter.format(Date(reminder.time))
             setOnClickListener {
                 showDatePicker(reminder.time) { time ->
@@ -97,7 +105,7 @@ class ReminderModalFragment: BaseModalFragment() {
     }
 
     private fun initBtnDelete(reminder: Reminder) {
-        mBinding.alarmModalDeleteBtn.setOnClickListener {
+        mBinding.reminderModalDeleteBtn.setOnClickListener {
             lifecycleScope.launch {
                 mViewModel.unsetReminder(reminder.movieId, reminder.movieTitle)
             }

@@ -42,6 +42,8 @@
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/layouts/startScreen/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/layouts/startScreen/layout/fragment_start_screen.xml" value="0.22" />
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/menu/movies_menu.xml" value="0.35185185185185186" />
+        <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/menu/search_results_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/screens/alarms/drawable/ic_notification.xml" value="0.3828125" />
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/screens/alarms/layout/fragment_alarms.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudioProjects/MovieList/app/src/main/res/screens/commonErrorAndLoading/layout/part_error_and_loading.xml" value="0.15104166666666666" />

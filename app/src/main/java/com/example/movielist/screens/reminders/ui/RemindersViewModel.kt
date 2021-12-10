@@ -30,7 +30,7 @@ class AlarmsViewModel @Inject constructor(
             liveData {
                 when {
                     movieId == DELETED_MOVIE_ID -> emit(Status.Error(Exception("alarm is deleted")))
-                    else -> emit(appNotificator.getAlarm(movieId))
+                    else -> emit(appNotificator.getReminder(movieId))
                 }
             }
         }
@@ -49,16 +49,16 @@ class AlarmsViewModel @Inject constructor(
         }
     }
 
-    fun getAlarm(movieId: Int) {
+    fun getReminder(movieId: Int) {
         viewModelScope.launch {
             _movieId.postValue(movieId)
         }
     }
 
-    fun getAlarms() {
+    fun getReminders() {
         viewModelScope.launch {
             _screenState.postValue(Status.InProgress)
-            _screenState.postValue(appNotificator.getAlarms())
+            _screenState.postValue(appNotificator.getReminders())
         }
     }
 
@@ -67,14 +67,12 @@ class AlarmsViewModel @Inject constructor(
     }
 
     override fun dataChanged() {
-        getAlarms()
+        getReminders()
     }
 
-    override fun alarmDeleted(movieId: Int) {
-        if (movieId == _movieId.value) _movieId.postValue(DELETED_MOVIE_ID)
-    }
+    override fun reminderDeleted(movieId: Int) {}
 
-    override fun alarmAdded(movieId: Int) {
-        getAlarms()
+    override fun reminderAdded(movieId: Int) {
+        getReminders()
     }
 }

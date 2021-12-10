@@ -1,7 +1,7 @@
 package com.example.movielist.di
 
 import android.content.Context
-import com.example.movielist.data.alarm.AlarmsDao
+import com.example.movielist.data.reminder.RemindersDao
 import com.example.movielist.data.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideAlarmsDao(@ApplicationContext context: Context): AlarmsDao {
+    fun provideAlarmsDao(@ApplicationContext context: Context): RemindersDao {
         return AppDatabase.getInstance(context).getAlarmsDao()
     }
 }
