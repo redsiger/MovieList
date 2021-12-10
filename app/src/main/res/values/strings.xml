@@ -4,11 +4,34 @@
     <string name="genre_is_undefined">genre is undefined</string>
     <string name="btn_try_again">try again</string>
     <string name="common_error_message">Something went wrong. Please, try again later</string>
-    <string name="btn_remind_me_later">Remind</string>
+    <string name="btn_remind_me_later_text">Create a reminder</string>
     <string name="movie_detail_votes_count">"Votes: %1$s "</string>
     <string name="movie_detail_director">Director</string>
     <string name="movie_detail_recommendations_title">Recommendations</string>
     <string name="movie_detail_release_title">Release date</string>
     <string name="movie_detail_budget_title">Budget</string>
     <string name="search_movies_hint">Search movies…</string>
+    <string name="discover_movies_title">Discover for yourself</string>
+    <string name="btn_delete_title">Delete</string>
+    <string name="empty" translatable="false" />
+    <string name="app_notificationRemind_text">You wanted to see this movie</string>
+    <string name="reminder_not_found_text">Alarm not found</string>
+    <string name="btn_delete_reminder_text">Delete reminder</string>
+    <string name="ic_search_text">Search</string>
+    <string name="noRemindersYet_text">No reminders yet</string>
+    <string name="ic_main_text">Main</string>
+    <string name="ic_reminders_text">Reminders</string>
+    <string name="btn_cancel_text">@android:string/cancel</string>
+    <string name="reminderDeleted_text">Reminder is deleted</string>
+    <string name="reminderCreated_text">Reminder created</string>
+    <string name="movie_detail_about_title">About</string>
+    <string name="movie_detail_about_original_title">Original title</string>
+    <string name="movie_detail_genres_title">Genre</string>
+    <string name="movie_detail_country_title">Country</string>
+    <string name="movie_detail_overview_title">Overview</string>
+    <string name="movie_detail_trailer_title">Trailer</string>
+    <string name="movie_detail_cast_title">Cast</string>
+    <string name="movie_detail_crew_title">Crew</string>
+    <string name="datePicker_title_text">Choose date</string>
+    <string name="timePicker_title_text">Choose time</string>
 </resources>

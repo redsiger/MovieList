@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_graph"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.movielist.screens.search.ui.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment"
+            app:popUpTo="@id/start_graph"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="searchQuery"
+                app:argType="string"
+                app:nullable="false"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.example.movielist.screens.search.ui.SearchResultsFragment"
+        android:label="SearchResultsFragment">
+        <argument
+            android:name="searchQuery"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+</navigation>

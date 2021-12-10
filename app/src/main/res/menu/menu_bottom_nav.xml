@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_movie"
+        android:id="@id/start_graph"
+        android:title="@string/ic_main_text"/>
+
+    <item
+        android:icon="@drawable/ic_reminder"
+        android:id="@id/reminders_graph"
+        android:title="@string/ic_reminders_text"/>
+</menu>

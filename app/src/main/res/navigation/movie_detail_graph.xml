@@ -7,13 +7,11 @@
 
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.example.movielist.Screens.movieDetail.MovieDetailFragment"
-        android:label="MovieDetailFragment" >
+        android:name="com.example.movielist.screens.movieDetail.ui.MovieDetailFragment"
+        android:label="@string/empty">
         <argument
             android:name="movieId"
             app:argType="integer"
-            app:nullable="false"/>
-
-
+            app:nullable="false" />
     </fragment>
 </navigation>

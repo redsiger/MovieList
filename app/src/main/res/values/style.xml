@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--////////////////////////////////////////////////////////////////////-->
+
     <!-- Text -->
 
     <style name="Text">
@@ -12,15 +14,99 @@
     </style>
 
     <style name="TextSecondary" parent="Text">
-<!--        <item name="android:textColor">@color/secondary_text_color</item>-->
         <item name="android:textColor">?android:textColorTertiary</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////-->
 
-    <!-- Custom attributes -->
+    <!--  Modal  -->
 
-    <style name="colorSurfaceLevel0">
-        <item name="color">?colorSurfaceLevel0</item>
+    <style name="ModalTitle" parent="Text">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/app_text_extraLarge</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ModalSubtitle" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_large</item>
+        <item name="android:paddingStart">@dimen/app_padding_large</item>
+        <item name="android:paddingEnd">@dimen/app_padding_large</item>
+        <item name="android:paddingBottom">@dimen/app_padding_large</item>
+        <item name="android:paddingTop">@dimen/app_padding_large</item>
+        <item name="android:drawablePadding">@dimen/app_margin_extraLarge</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  CreditItem  -->
+
+    <style name="TextName" parent="TextPrimary">
+        <item name="android:textSize">@dimen/app_text_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextCharacter" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_medium_small</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  MovieItem  -->
+
+    <style name="ItemMovieRating" parent="Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/app_text_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ItemMovieTitle" parent="TextPrimary">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/app_text_medium_small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ItemMovieGenre" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_small</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////-->
+
+    <!--  MovieDetailFragment's text styles  -->
+
+    <style name="MovieDetailTitleExpanded" parent="MovieDetailTitle">
+        <item name="android:textSize">@dimen/app_text_extraLarge</item>
+    </style>
+
+    <style name="MovieDetailTitleExpandedGenres" parent="MovieDetailTitle">
+        <item name="android:textSize">@dimen/app_text_small</item>
+        <item name="android:textStyle">normal</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="MovieDetailTitle" parent="Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/app_text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieDetailRating" parent="TextPrimary">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieDetailRatingCount" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_small</item>
+    </style>
+
+    <style name="MovieDetailSectionTitle" parent="TextPrimary">
+        <item name="android:textSize">@dimen/app_text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieDetailSectionSubtitle" parent="TextSecondary">
+        <item name="android:textSize">@dimen/app_text_small</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////-->
 
 </resources>

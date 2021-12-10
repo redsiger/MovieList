@@ -18,7 +18,7 @@
         android:theme="@style/Theme.MovieList">
 
         <!--SplashScreen-->
-        <activity android:name="com.example.movielist.Screens.splashScreen.SplashScreenActivity"
+        <activity android:name="com.example.movielist.screens.splashScreen.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
@@ -29,13 +29,20 @@
 
         <!--MainActivity-->
         <activity
-            android:name="com.example.movielist.Screens.moviesScreen.MainActivity"
+            android:name="com.example.movielist.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
+
+        <!-- AlarmReceiver -->
+        <receiver
+            android:name=".utils.ReminderReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
     </application>
 
 </manifest>

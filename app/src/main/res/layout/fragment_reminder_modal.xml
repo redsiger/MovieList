@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/app_padding_extraLarge"
+    android:paddingBottom="@dimen/app_padding_extraLarge"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/reminderModal_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/app_padding_large"
+        android:paddingEnd="@dimen/app_padding_large"
+        style="@style/ModalTitle"
+        tools:text="Some text"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/reminderModal_remind_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin_extraLarge"
+        app:layout_constraintTop_toBottomOf="@id/reminderModal_title_text"
+        android:background="?attr/selectableItemBackground"
+        app:drawableStartCompat="@drawable/ic_reminder"
+        style="@style/ModalSubtitle"/>
+
+    <TextView
+        android:id="@+id/reminderModal_delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_delete_title"
+        app:layout_constraintTop_toBottomOf="@id/reminderModal_remind_btn"
+        android:background="?attr/selectableItemBackground"
+        app:drawableStartCompat="@drawable/ic_delete"
+        style="@style/ModalSubtitle"/>
+
+    <ProgressBar
+        android:id="@+id/reminderModal_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,18 @@
 package com.example.movielist.network.MovieById
 
+import android.os.Parcelable
 import com.example.movielist.network.MovieById.VideoResponse.VideoResponse
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MovieById(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any,
+    val belongsToCollection: Collection,
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("genres")
@@ -53,4 +56,4 @@ data class MovieById(
     @SerializedName("videos")
     val videos: VideoResponse,
     val isEmpty: Boolean
-)
+): Parcelable

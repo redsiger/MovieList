@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reminders_graph"
+    app:startDestination="@id/remindersFragment">
+
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="com.example.movielist.screens.reminders.ui.RemindersFragment"
+        android:label="Reminders" />
+
+    <dialog
+        android:id="@+id/reminderModalFragment"
+        android:name="com.example.movielist.screens.reminders.ui.ReminderModalFragment"
+        android:label="Reminder" >
+        <argument
+            android:name="reminder"
+            app:argType="com.example.movielist.screens.reminders.data.Reminder" />
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_reminderModalFragment"
+        app:destination="@id/reminderModalFragment">
+        <argument
+            android:name="reminder"
+            app:argType="com.example.movielist.screens.reminders.data.Reminder" />
+    </action>
+
+</navigation>
