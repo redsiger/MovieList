@@ -25,6 +25,14 @@ class MovieAdapter(
 
     var movieList: MutableList<BaseMovieItem> = mutableListOf()
 
+    fun addToList(list: List<BaseMovieItem>) {
+        val diffUtilCallBack = MovieListComparator(movieList, list)
+        val diffResult = DiffUtil.calculateDiff(diffUtilCallBack)
+
+        movieList.addAll(list)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
     fun setList(list: List<BaseMovieItem>) {
         val diffUtilCallBack = MovieListComparator(movieList, list)
         val diffResult = DiffUtil.calculateDiff(diffUtilCallBack)

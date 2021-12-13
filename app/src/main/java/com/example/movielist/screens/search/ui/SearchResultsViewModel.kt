@@ -38,15 +38,22 @@ class SearchResultsViewModel  @Inject constructor(
             }
         }
 
-    private val searchQuery: String? by lazy {
-        savedStateHandle.get("searchQuery")
+    private var currentPage: Int = 1
+    private val searchQuery: String? by lazy { savedStateHandle.get("searchQuery") }
+
+    fun fetchMore() {
+        viewModelScope.launch {
+            _searchResult.postValue(repository.getSearchResults(searchQuery!!, page = currentPage))
+            currentPage++
+        }
     }
 
     fun getSearchResult() {
         viewModelScope.launch {
             searchQuery?.let { searchQuery ->
                 _searchResult.postValue(Status.InProgress)
-                _searchResult.postValue(repository.getSearchResults(searchQuery))
+                _searchResult.postValue(repository.getSearchResults(searchQuery, page = currentPage))
+                currentPage++
             }
         }
     }

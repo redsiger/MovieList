@@ -31,9 +31,9 @@ class MovieRepository(
         ).flow
     }
 
-    suspend fun getSearchResults(searchQuery: String): Status<List<Movie>> {
+    suspend fun getSearchResults(searchQuery: String, page: Int): Status<List<Movie>> {
         return try {
-            val response = service.getSearchResult(searchQuery)
+            val response = service.getSearchResult(searchQuery, page)
             if (response.isSuccessful) {
                 Status.Success(response.body()!!.results)
             } else {

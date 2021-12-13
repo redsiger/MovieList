@@ -30,5 +30,5 @@ interface MovieService {
     suspend fun getRecommendations(@Path("id") movieId: Int): Response<RecommendationsResponse>
 
     @GET("search/movie")
-    suspend fun getSearchResult(@Query("query") searchQuery: String): Response<MovieResponse>
+    suspend fun getSearchResult(@Query("query") searchQuery: String, @Query("page") page: Int = 1): Response<MovieResponse>
 }

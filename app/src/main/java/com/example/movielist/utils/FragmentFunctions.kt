@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.AbsListView
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movielist.R
 import com.example.movielist.screens.movies.MoviesScreen.MovieAdapter
@@ -104,7 +106,7 @@ fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdap
     )
 }
 
-fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdapter: MovieAdapter, itemWidth: Int) {
+fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdapter: MovieAdapter, itemWidth: Int, shouldFetchMore: () -> Unit) {
 
     recyclerView.viewTreeObserver.addOnGlobalLayoutListener(
         object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -117,6 +119,9 @@ fun BaseFragment.setupGridLayoutManager(recyclerView: RecyclerView, recyclerAdap
                     val gridLayoutManager = GridLayoutManager(requireContext(), spanCount)
                     recyclerView.layoutManager = gridLayoutManager
                     recyclerView.addItemDecoration(OffsetRecyclerDecorator(5, gridLayoutManager))
+                    recyclerView.fetchMore {
+                        shouldFetchMore()
+                    }
                 }
             }
         }
@@ -273,4 +278,21 @@ fun View.hideView() {
  */
 fun View.goneView() {
     this.isGone = true
+}
+
+fun RecyclerView.fetchMore(action: () -> Unit) {
+    val layoutManager = this.layoutManager as LinearLayoutManager
+    this.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val totalItemCount = layoutManager.itemCount
+            Log.e("recyclerViewFetchMore", "totalItemCount = $totalItemCount")
+            val visibleItemCount = layoutManager.childCount
+            Log.e("recyclerViewFetchMore", "visibleItemCount = $visibleItemCount")
+            val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+            Log.e("recyclerViewFetchMore", "lastVisibleItem = $lastVisibleItem")
+
+            if (lastVisibleItem >= totalItemCount-1) action()
+        }
+    })
 }

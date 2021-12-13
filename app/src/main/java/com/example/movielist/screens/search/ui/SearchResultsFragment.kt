@@ -7,10 +7,12 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movielist.R
 import com.example.movielist.screens.movies.MoviesScreen.MovieAdapter
 import com.example.movielist.databinding.FragmentSearchResultsBinding
 import com.example.movielist.foundation.BaseMotionFragment
+import com.example.movielist.utils.fetchMore
 import com.example.movielist.utils.renderSimpleResult
 import com.example.movielist.utils.setupGridLayoutManager
 import com.squareup.picasso.Picasso
@@ -41,7 +43,8 @@ class SearchResultsFragment: BaseMotionFragment(R.layout.fragment_search_results
         _binding = FragmentSearchResultsBinding.bind(view)
         val toolbar = mBinding.searchResultsToolbar
         setupNavigation(toolbar, searchQuery)
-        setupGridLayoutManager(mBinding.searchResultsPopularsRecycler, mAdapter, resources.getDimensionPixelSize(R.dimen.item_movie_img_width))
+        setupGridLayoutManager(mBinding.searchResultsRecycler, mAdapter, resources.getDimensionPixelSize(R.dimen.item_movie_img_width),
+            { initRecycler() })
         initObservers()
         setupToolbarMenu(toolbar, R.menu.menu_search_results, menuActions)
     }
@@ -71,9 +74,17 @@ class SearchResultsFragment: BaseMotionFragment(R.layout.fragment_search_results
                 root = mBinding.root,
                 status = status,
                 onSuccess = {
-                    mAdapter.setList(it)
+//                    mAdapter.setList(it)
+                    mAdapter.addToList(it)
                 }
             )
         })
+    }
+
+    private fun initRecycler() {
+        mBinding.searchResultsRecycler.fetchMore {
+            Log.e("recyclerViewFetchMore", "YES")
+            mViewModel.fetchMore()
+        }
     }
 }
